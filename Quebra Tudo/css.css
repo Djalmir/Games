@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+body{
+	background-color: black;
+}
+
+#loadGif{
+	position: absolute;
+	left: 49%;
+	top: 50%;
+}
+
+#tela{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	top: 0;
+	height: 100%;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="menu.css">
+    <title>DJ Games</title>
+</head>
+<body>
+    <nav id="menu">
+		<ul>
+            <li>
+				<a onclick="localStorage.setItem('DJGames-href','AtaquEstok/AtaquEstok.html');">
+				<figure class="gameCard">
+                    <img src="AtaquEstok/preview.png">
+                    <figcaption>
+						<p>AtaquEstok</p>
+					</figcaption>					
+				</figure>
+				</a>
+			</li>
+			<li>
+				<a onclick="localStorage.setItem('DJGames-href','Invasores/Invasores.html');">
+				<figure class="gameCard">
+                    <img src="Invasores/preview.png">
+                    <figcaption>
+						<p>Invasores</p>
+					</figcaption>					
+				</figure>
+				</a>
+			</li>
+			<li>
+				<a onclick="localStorage.setItem('DJGames-href','Quebra Tudo/Quebra Tudo.html');">
+				<figure class="gameCard">
+                    <img src="Quebra Tudo/preview.png">
+                    <figcaption>
+						<p>Quebra Tudo!</p>
+					</figcaption>					
+				</figure>
+				</a>
+			</li>
+			<li>
+				<a onclick="localStorage.setItem('DJGames-href','S.i.n.S/S.i.n.S.html');">
+				<figure class="gameCard">
+                    <img src="S.i.n.S/preview.png">
+                    <figcaption>
+						<p>S.in.S</p>
+					</figcaption>					
+				</figure>
+				</a>
+			</li>
+			<li>
+				<a onclick="localStorage.setItem('DJGames-href','S.i.n.S2/S.i.n.S2.html');">
+				<figure class="gameCard">
+                    <img src="S.i.n.S2/preview.png">
+                    <figcaption>
+						<p>S.in.S2</p>
+					</figcaption>					
+				</figure>
+				</a>
+			</li>
+			<li>
+				<a onclick="localStorage.setItem('DJGames-href','Tetris/tetris.html');">
+				<figure class="gameCard">
+                    <img src="Tetris/preview.png">
+                    <figcaption>
+						<p>Tetris</p>
+					</figcaption>					
+				</figure>
+				</a>
+			</li>
+		</ul>
+	</nav>
+	
+	<script type="text/javascript">
+		document.body.onload=function(){
+			localStorage.setItem('DJGames-showingMenu','true')
+			localStorage.setItem('DJGames-href','menu.html')
+		}
+		document.body.onunload=function(){
+			localStorage.setItem('DJGames-showingMenu','false')
+		}
+	</script>
+</body>
+</html>

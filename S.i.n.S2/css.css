@@ -1,0 +1,34 @@
+@charset "UTF-8";
+@font-face{
+    font-family: "Comic Sans MS";
+    src: url("../fonts/Comic\ Sans\ MS.ttf")
+}
+
+body{
+	background-color: black;
+	overflow: hidden;
+}
+
+#loadGif{
+	position: absolute;
+	left: 49%;
+	top: 50%;
+}
+
+#tela{
+	position: absolute;
+	left: 0%;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+}
+
+#gui{
+	background-color: rgba(0,0,0,.0);
+	position: absolute;
+	left: 0%;
+	top: 0%;
+	width: 100%;
+	height: 100%;	
+}

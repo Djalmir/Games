@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1.0">
+        <link type="text/css" rel="stylesheet" href="css.css"/>
+        <title>Tetris</title>
+    </head>
+    <body>
+        <canvas id="canvas" width=240 height=400></canvas>
+        <div id="leftControls">
+            <div class='btn' id="btLeft"><small><sub>v</sub></small></div>
+            <div class='btn' id="btRight"><small><sub>w</sub></small></div>
+            <div class='btn' id="btDown"><small><sub>s</sub></small></div>
+        </div>
+        <div id="rightControls">
+            <div class='btn' id="btRotLeft">&curvearrowleft;</div>
+            <div class='btn' id="btRotRight">&curvearrowright;</div>
+        </div>
+        <audio controls id='sndTurn' hidden>
+            <source src='snds/turn.wav' type='audio/mpeg'>
+        </audio>
+        <audio controls id='sndMerge' hidden>
+            <source src='snds/merge.wav' type='audio/mpeg'>
+        </audio>
+        <audio controls id='sndExplosion' hidden>
+            <source src='snds/explosion.wav' type='audio/mpeg'>
+        </audio>
+        <script src="sounds.js"></script>
+        <script src="btn.js"></script>
+        <script src="edit.js"></script>
+        <script src="js.js"></script>
+        <script src="arena.js"></script>
+        <script src="player.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
