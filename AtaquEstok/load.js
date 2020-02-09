@@ -15,6 +15,7 @@ var box = new Image()
 var boxes = []
 var particles = []
 var startingBoxes = 50
+var levelChanger = 500
 var level = 1
 var lastLevelChange = 0
 var paused = false
