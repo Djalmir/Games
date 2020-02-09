@@ -336,8 +336,8 @@ function createNewBox(l,clawId) {
                     boxes.push(aux[i])
             }
             player.score+=35
-            if(player.score-lastLevelChange>=1000){
-                lastLevelChange+=1000
+            if(player.score-lastLevelChange>=levelChanger){
+                lastLevelChange+=levelChanger
                 level++
             }
         }
@@ -361,8 +361,8 @@ function breakLine(t){
     explosion.currentTime=0
     explosion.play()
     player.score+=250
-    if(player.score-lastLevelChange>=1000){
-        lastLevelChange+=1000
+    if(player.score-lastLevelChange>=levelChanger){
+        lastLevelChange+=levelChanger
         level++
     }
 
