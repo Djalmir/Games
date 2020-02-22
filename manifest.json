@@ -3,7 +3,7 @@
     "shot_name": "DJ Games",
     "theme_color": "#286e96",
     "background_color": "#286e96",
-    "display": "standalone",
+    "display": "fullscreen",
     "start_url": "/",
     "icons":[
         {
