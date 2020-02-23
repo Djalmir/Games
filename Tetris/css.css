@@ -3,11 +3,13 @@
 @font-face{
     font-family:bauhaus;
     src:url('fonts/bauhaus.ttf');
+    font-display: swap;
 }
 
 @font-face{
     font-family:wingding;
-    src:url('fonts/wingding.ttf')
+    src:url('fonts/wingding.ttf');
+    font-display: swap;
 }
 
 body{

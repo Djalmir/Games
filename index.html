@@ -35,11 +35,11 @@
 
     <link rel="manifest" href="./manifest.json" crossOrigin="use-credentials">
 
-    <script>
+    <!-- <script>
         if('serviceWorker' in navigator){
             navigator.serviceWorker.register('./sw.js')
         }
-    </script>
+    </script> -->
 
 </head>
 <body>
@@ -61,12 +61,12 @@
             </nav>
         </header>
         <section id='screen'>
-            <iframe id="iframe"></iframe>
+            <iframe id="iframe" title="games"></iframe>
             <img src="imgs/fullScreen.png" alt="fullScreenButton" id="fullScreenButton" onclick="fullScreen()">
         </section>
         <footer>
             <p>
-                Copyright &copy; 2018 - by <a href="https://www.facebook.com/djalmir.miodutzki" target="_blank">Djalmir Miodutzki</a>
+                Copyright &copy; 2018 - by <a href="https://www.facebook.com/djalmir.miodutzki" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a>
             </p>
         </footer>
     </div>

@@ -2,6 +2,7 @@
 @font-face{
 	font-family: 'mag';
 	src: url("magneto.ttf");
+	font-display: swap;
 }
 
 body{

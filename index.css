@@ -1,7 +1,8 @@
 @charset "UTF-8";
 @font-face{
     font-family: "Harngton";
-    src: url("fonts/HARNGTON.TTF")
+    src: url("fonts/HARNGTON.TTF");
+    font-display: swap;
 }
 
 body{
