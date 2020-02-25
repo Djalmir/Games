@@ -48,6 +48,7 @@ body{
     user-select: none;
     cursor: pointer;
     transition: .2s;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #menu ul li:hover{

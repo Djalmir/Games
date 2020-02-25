@@ -1,6 +1,7 @@
 var canvas = document.getElementById('gameScreen')
 var c = canvas.getContext('2d')
 c.textAlign='center'
+var inputText=document.getElementById('inputText')
 
 var bg
 var player
@@ -9,6 +10,7 @@ const walkR = 2
 const idle = 1
 const gravity = 6
 const floorY = 579
+var pauseImg = new Image()
 var claw = new Image()
 var claws = []
 var box = new Image()
@@ -63,6 +65,9 @@ function load() {
     box.addEventListener('load',doneLoading)
     loadingImages.push(box)
 
+    pauseImg.addEventListener('load',doneLoading)
+    loadingImages.push(pauseImg)
+
     bg = new Image()
     bg.addEventListener('load',doneLoading)
     loadingImages.push(bg)
@@ -109,5 +114,6 @@ function load() {
     player.img.src = 'imgs/player/player.png'
     bg.src = 'imgs/scenario/bg.png'
     claw.src = 'imgs/objects/claw.png'
-    box.src = 'imgs/objects/box.png'   
+    box.src = 'imgs/objects/box.png'
+    pauseImg.src = 'imgs/scenario/pause.png'
 }

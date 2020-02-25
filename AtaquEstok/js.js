@@ -164,6 +164,9 @@ function newGame(){
     document.onmouseup=''
     document.onkeydown = kd
     document.onkeyup = ku
+    document.ontouchstart = ts
+    document.ontouchmove = tm
+    document.ontouchend = te
     claws=[]
     boxes=[]
     for(var i = 0; i < startingBoxes; i++){
@@ -300,6 +303,16 @@ function draw(){
     c.font='16px Quantico'
     c.fillText(player.score+" pontos",270,15.5)
     c.fillText("Nível "+level,530,15.5)
+    
+    c.strokeStyle="rgba(0,0,0,.7)"
+    c.lineCap="round"
+    c.lineWidth=50
+    c.beginPath()
+    c.moveTo(400,0)
+    c.lineTo(400,16)
+    c.stroke()
+    c.closePath()
+    c.drawImage(pauseImg,0,0,64,64,384,0,32,32)
 
 }
 
@@ -517,6 +530,13 @@ function mainMenuMouseUp(e){
             mainMenu_editName.backgroundColor='rgba(50,50,50,.3)'
             mainMenu_editName.textColor='white'
             mainMenu_editName.focused=true
+            inputText.focus()
+            var v = inputText.value
+            inputText.value=''
+            inputText.value=v
+    }
+    else{
+        inputText.blur()
     }
  
     if(mX>=mainMenu_playBtn.left&&mX<=mainMenu_playBtn.left+mainMenu_playBtn.width&&
@@ -543,24 +563,11 @@ function mainMenuMouseUp(e){
 
 function mainMenuKd(e){
     if (mainMenu_editName.focused) {
-        if ((e.keyCode!=16)&&(e.keyCode!=20)&&(e.keyCode!=13)&&(e.keyCode!=17)&&(e.keyCode!=18)
-            &&(e.keyCode!=37)&&(e.keyCode!=38)&&(e.keyCode!=39)&&(e.keyCode!=40)&&(e.keyCode!=46)&&
-            (e.keyCode!=33)&&(e.keyCode!=34)&&(e.keyCode!=35)&&(e.keyCode!=36)&&(e.keyCode!=45)&&
-            (e.keyCode!=91)&&(e.keyCode!=92)&&(e.keyCode!=93)&&(e.keyCode!=144)&&(e.keyCode!=27)&&
-            (e.keyCode!=9)&&(e.keyCode!=219)&&(e.keyCode!=222)&&(e.key!="F1")&&(e.key!="F2")&&(e.key!="F3")&&(e.key!="F4")&&(e.key!="F5")&&
-            (e.key!="F6")&&(e.key!="F7")&&(e.key!="F8")&&(e.key!="F9")&&(e.key!="F10")&&(e.key!="F11")&&
-            (e.key!="F12")) {
-            if (e.keyCode==8)
-                mainMenu_editName.text=mainMenu_editName.text.substring(0,mainMenu_editName.text.length-1);
-            else {
-                if (mainMenu_editName.text.length<20)
-                    mainMenu_editName.text+=e.key;
-            }
-
-        }
+        mainMenu_editName.text=inputText.value
     }
 
     if(e.keyCode==13&&mainMenu_editName.text.trim()!=''){
+        inputText.blur()
         mainMenu_editName.focused=false
         mainMenu_playBtn.backgroundColor='rgba(0,125,0,.7)'
         mainMenu_playBtn.textColor='black'
@@ -568,6 +575,7 @@ function mainMenuKd(e){
 }
 
 function mainMenuKu(e){
+    mainMenu_editName.text=inputText.value
     if(e.keyCode==13&&mainMenu_editName.text.trim()!=''){
         mainMenu_playBtn.backgroundColor='rgba(100,255,0,.7)'
         mainMenu_playBtn.textColor='black'
@@ -723,6 +731,57 @@ function gameOverMouseUp(e){
         gameOverMenu_exitBtn.textColor='white'
         showingMainMenu=true
     }
+}
+
+function ts(e){
+    tx=e.touches[e.touches.length-1].clientX*(800/window.innerWidth)
+    ty=e.touches[e.touches.length-1].clientY*(600/window.innerHeight)
+    if(ty<40&&tx>370&&tx<430){
+        if(!gameOver)
+            paused=true
+            document.onmousemove=pauseMouseMove
+            document.onmousedown=pauseMouseDown
+            document.onmouseup=pauseMouseUp
+    }
+    else if(ty<300){
+        if (player.collision.bottom&&(!paused)){
+            player.startJump=player.top
+            player.jumpping=true
+        }
+    }
+    else if(tx<400){
+        if(!paused)
+                player.action=walkL
+    }
+    else{
+        if(!paused)
+                player.action=walkR
+    }
+
+}
+
+function tm(e){
+    tx=e.touches[e.touches.length-1].clientX*(800/window.innerWidth)
+    ty=e.touches[e.touches.length-1].clientY*(600/window.innerHeight)
+    if(ty<300){
+        if (player.collision.bottom&&(!paused)){
+            player.startJump=player.top
+            player.jumpping=true
+        }
+    }
+    else if(tx<400){
+        if(!paused)
+                player.action=walkL
+    }
+    else{
+        if(!paused)
+                player.action=walkR
+    }
+}
+
+function te(e){
+    if(e.touches.length==0)
+        player.action=idle
 }
 
 window.onblur=cblur;

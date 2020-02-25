@@ -1,6 +1,6 @@
 var screen = document.getElementById('screen')
 var frame = document.getElementById('iframe')
-var fullScreenButton = document.getElementById('fullScreenButton')
+// var fullScreenButton = document.getElementById('fullScreenButton')
 var showedButton = false
 var isFullScreen = false
 var currentSrc = 'menu.html'
@@ -37,7 +37,7 @@ function loop(){
         else{
             screen.style=""
         }
-        fullScreenButton.style.display='none'
+        // fullScreenButton.style.display='none'
         showedButton=false
         opacity=.1
         btSize=40
@@ -51,12 +51,12 @@ function loop(){
             enteringGame=false
         }
         screen.style.border='none'
-        fullScreenButton.style.display='block'
+        // fullScreenButton.style.display='block'
         if(!showedButton){
             if(btSize<50&&(growing)){
-                fullScreenButton.style.opacity=opacity
-                fullScreenButton.style.width=btSize+'px'
-                fullScreenButton.style.height=btSize+'px'
+                // fullScreenButton.style.opacity=opacity
+                // fullScreenButton.style.width=btSize+'px'
+                // fullScreenButton.style.height=btSize+'px'
                 opacity+=.028
                 btSize+=.4
             }
@@ -67,15 +67,15 @@ function loop(){
                 }
                 if(!growing){
                     if(btSize>40){
-                        fullScreenButton.style.opacity=opacity
-                        fullScreenButton.style.width=btSize+'px'
-                        fullScreenButton.style.height=btSize+'px'
+                        // fullScreenButton.style.opacity=opacity
+                        // fullScreenButton.style.width=btSize+'px'
+                        // fullScreenButton.style.height=btSize+'px'
                         opacity-=.028
                         btSize-=.4
                     }
                     else{
                         showedButton=true
-                        fullScreenButton.style=''
+                        // fullScreenButton.style=''
                     }
                 }
             }

@@ -11,4 +11,15 @@ body{
     top: 0px;
     width: 100%;
     height: 100%;
+    touch-action: none;
+}
+
+#inputText{
+    position:absolute;
+    top: 0;
+    left: 0;
+    background-color:#00000000;
+    border:none;
+    color:#00000000;
+    outline: none;
 }
