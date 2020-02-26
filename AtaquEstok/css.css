@@ -16,7 +16,7 @@ body{
 
 #inputText{
     position:absolute;
-    top: 0;
+    top: -1000px;
     left: 0;
     background-color:#00000000;
     border:none;

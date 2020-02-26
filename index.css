@@ -58,27 +58,26 @@ header nav ul li:hover{
 
 #screen{
     flex: 1;
-    position: relative;
     border: 1px solid rgba(255,255,255,.1);
     background-color: rgba(255,255,255,.15);
     border-radius: 10px;
     display: flex;
-    flex-direction: row;
+    width: 100%;
+    height: 100%;
     margin: 10px 0;
     transition: .4s;
     overflow: hidden;
+    text-align: center;    
 }
 
 iframe{
+    flex: 1;
     border:none;
-    position: relative;
-    left: 0;
-    top: 0;
     width: 100%;
     height: 100%;
 }
 
-#fullScreenButton{
+/* #fullScreenButton{
     background-color: rgba(250,250,250,.2);
 	border-radius: 5px;
 	position: absolute;
@@ -96,7 +95,7 @@ iframe{
     opacity: 1;
     width: 50px;
     height: 50px;
-}
+} */
 
 footer{
     text-align: center;

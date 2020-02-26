@@ -17,16 +17,48 @@ function fullScreen(){
     isFullScreen=!isFullScreen
 
     if(isFullScreen){
+        centralizeGame()
+    }
+    else{
+        screen.style=""
+        frame.style=""
+    }
+
+}
+
+function orientationChanged(){
+    centralizeGame()
+}
+
+function centralizeGame(){
+    if(isFullScreen){
+        
         screen.style.position='absolute'
+        screen.style.display='inline-block'
         screen.style.left='0%'
         screen.style.marginTop="0%"
         screen.style.width="100%"
         screen.style.height="100%"
+        screen.style.backgroundColor='#0a1432'
+        screen.style.paddingTop='0'
+        if(localStorage.getItem('DJGames-href')!='Tetris/tetris.html'){
+            var width = 800
+            var height = 600
+        }
+        else{
+            var width = 240
+            var height = 400
+        }
+        var maxWidth = window.innerWidth
+        var maxHeight = window.innerHeight
+        var ratio = maxWidth / width
+        if(height * ratio > maxHeight)
+            ratio = maxHeight / height
+        frame.style.flex=0
+        frame.style.width=width*ratio+'px'
+        frame.style.height=height*ratio+'px'
+        screen.style.paddingTop=(maxHeight-height*ratio)/2+'px'
     }
-    else{
-        screen.style=""
-    }
-
 }
 
 function loop(){
@@ -92,3 +124,6 @@ function loop(){
 }
 
 loop()
+
+window.onresize=centralizeGame
+window.onorientationchange=orientationChanged

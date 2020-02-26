@@ -1,6 +1,6 @@
 function opening(){
     if(screen.width<1025){
-        setOrientation()
+        //setOrientation()
         gamePaused=false
     }
     
@@ -309,110 +309,134 @@ document.onkeyup=(e)=>{
     }
 }
 
-const btLeft=document.getElementById('btLeft')
-btLeft.ontouchstart=()=>{
-    if(!isGameOver)
-        player.move=-1
-    btLeft.style.backgroundColor='rgba(157, 255, 0, 0.129)'
-}
-btLeft.ontouchend=()=>{
-    if(!isGameOver)
-        player.move=0
-    btLeft.style.backgroundColor='rgba(157, 255, 0, 0.329)'
+// const btLeft=document.getElementById('btLeft')
+// btLeft.ontouchstart=()=>{
+//     if(!isGameOver)
+//         player.move=-1
+//     btLeft.style.backgroundColor='rgba(157, 255, 0, 0.129)'
+// }
+// btLeft.ontouchend=()=>{
+//     if(!isGameOver)
+//         player.move=0
+//     btLeft.style.backgroundColor='rgba(157, 255, 0, 0.329)'
+// }
+
+// const btRight=document.getElementById('btRight')
+// btRight.ontouchstart=()=>{
+//     if(!isGameOver)
+//         player.move=1
+//     btRight.style.backgroundColor='rgba(157, 255, 0, 0.129)'
+// }
+// btRight.ontouchend=()=>{
+//     if(!isGameOver)
+//         player.move=0
+//     btRight.style.backgroundColor='rgba(157, 255, 0, 0.329)'
+// }
+
+// const btDown=document.getElementById('btDown')
+// btDown.ontouchstart=()=>{
+//     if(!isGameOver)
+//         player.dropSpeed=player.dropFast
+//     btDown.style.backgroundColor='rgba(157, 255, 0, 0.129)'
+// }
+// btDown.ontouchend=()=>{
+//     if(!isGameOver)
+//         player.dropSpeed=player.dropSlow
+//     btDown.style.backgroundColor='rgba(157, 255, 0, 0.329)'
+// }
+
+canvas.ontouchstart=(e)=>{
+    tx=e.touches[e.touches.length-1].clientX*(240/window.innerWidth)
+    ty=e.touches[e.touches.length-1].clientY*(400/window.innerHeight)
+    if(!isGameOver&&!gamePaused){
+        if(tx<120&&ty<200){
+            player.rotate(-1)
+        }
+        else if(tx>120&&ty<200){
+            player.rotate(+1)
+        }
+        else if(tx<80&&ty>200){
+            player.move=-1
+        }
+        else if(tx<160&&ty>200){
+            player.dropSpeed=player.dropFast
+        }
+        else {
+            player.move=1
+        }
+    }
+    else if(gamePaused)
+        gamePaused=false
 }
 
-const btRight=document.getElementById('btRight')
-btRight.ontouchstart=()=>{
-    if(!isGameOver)
-        player.move=1
-    btRight.style.backgroundColor='rgba(157, 255, 0, 0.129)'
-}
-btRight.ontouchend=()=>{
-    if(!isGameOver)
-        player.move=0
-    btRight.style.backgroundColor='rgba(157, 255, 0, 0.329)'
+canvas.ontouchend=()=>{
+    player.move=0
+    player.dropSpeed=player.dropSlow
 }
 
-const btDown=document.getElementById('btDown')
-btDown.ontouchstart=()=>{
-    if(!isGameOver)
-        player.dropSpeed=player.dropFast
-    btDown.style.backgroundColor='rgba(157, 255, 0, 0.129)'
-}
-btDown.ontouchend=()=>{
-    if(!isGameOver)
-        player.dropSpeed=player.dropSlow
-    btDown.style.backgroundColor='rgba(157, 255, 0, 0.329)'
-}
+// const btRotLeft=document.getElementById('btRotLeft')
+// btRotLeft.ontouchstart=()=>{
+//     if(!isGameOver)
+//         player.rotate(-1)
+//     btRotLeft.style.backgroundColor='rgba(157, 255, 0, 0.129)'
+// }
+// btRotLeft.ontouchend=()=>{
+//     btRotLeft.style.backgroundColor='rgba(157, 255, 0, 0.329)'
+// }
 
-canvas.ontouchstart=()=>{
-    if(!isGameOver)
-        gamePaused=!gamePaused
-}
-
-const btRotLeft=document.getElementById('btRotLeft')
-btRotLeft.ontouchstart=()=>{
-    if(!isGameOver)
-        player.rotate(-1)
-    btRotLeft.style.backgroundColor='rgba(157, 255, 0, 0.129)'
-}
-btRotLeft.ontouchend=()=>{
-    btRotLeft.style.backgroundColor='rgba(157, 255, 0, 0.329)'
-}
-
-const btRotRight=document.getElementById('btRotRight')
-btRotRight.ontouchstart=()=>{
-    if(!isGameOver)
-        player.rotate(1)
-    btRotRight.style.backgroundColor='rgba(157, 255, 0, 0.129)'
-}
-btRotRight.ontouchend=()=>{
-    btRotRight.style.backgroundColor='rgba(157, 255, 0, 0.329)'
-}
+// const btRotRight=document.getElementById('btRotRight')
+// btRotRight.ontouchstart=()=>{
+//     if(!isGameOver)
+//         player.rotate(1)
+//     btRotRight.style.backgroundColor='rgba(157, 255, 0, 0.129)'
+// }
+// btRotRight.ontouchend=()=>{
+//     btRotRight.style.backgroundColor='rgba(157, 255, 0, 0.329)'
+// }
 
 document.oncontextmenu=()=>{
     return false
 }
 
-window.addEventListener('orientationchange',setOrientation)
-function setOrientation(){
-    gamePaused=true
-    document.querySelector('#leftControls').style.height='16vh'
-    document.querySelector('#rightControls').style.height='16vh'
+// window.addEventListener('orientationchange',setOrientation)
+// function setOrientation(){
+//     gamePaused=true
+//     document.querySelector('#leftControls').style.height='16vh'
+//     document.querySelector('#rightControls').style.height='16vh'
 
-    if(screen.orientation.angle!==0){        
-        canvas.style.maxWidth='45%'
+//     if(screen.orientation.angle!==0){        
+//         canvas.style.maxWidth='45%'
 
-        if(screen.width>=1025){
-            canvas.style.height='98vh'
-            document.querySelector('#leftControls').style.display='none'
-            document.querySelector('#rightControls').style.display='none'
-        }
-        else{
-            canvas.style.height='96vh'
-            document.querySelector('#leftControls').style.display='block'
-            document.querySelector('#leftControls').style.bottom='50px'
-            document.querySelector('#rightControls').style.display='block'
-            document.querySelector('#rightControls').style.bottom='50px'
-        }
-    }
-    else{
-        if(screen.width>=1025){
-            canvas.style.height='98vh'
-            document.querySelector('#leftControls').style.display='none'
-            document.querySelector('#rightControls').style.display='none'
-        }
-        else{
-            canvas.style.height="80vh"
-            canvas.style.maxWidth=null
+//         if(screen.width>=1025){
+//             canvas.style.height='98vh'
+//             document.querySelector('#leftControls').style.display='none'
+//             document.querySelector('#rightControls').style.display='none'
+//         }
+//         else{
+//             canvas.style.height='96vh'
+//             document.querySelector('#leftControls').style.display='block'
+//             document.querySelector('#leftControls').style.bottom='50px'
+//             document.querySelector('#rightControls').style.display='block'
+//             document.querySelector('#rightControls').style.bottom='50px'
+//         }
+//     }
+//     else{
+//         if(screen.width>=1025){
+//             canvas.style.height='98vh'
+//             document.querySelector('#leftControls').style.display='none'
+//             document.querySelector('#rightControls').style.display='none'
+//         }
+//         else{
+//             canvas.style.height="80vh"
+//             canvas.style.maxWidth=null
 
-            document.querySelector('#leftControls').style.display='block'
-            document.querySelector('#leftControls').style.bottom='8px'
-            document.querySelector('#rightControls').style.display='block'
-            document.querySelector('#rightControls').style.bottom='8px'
-        }
-    }
-}
+//             document.querySelector('#leftControls').style.display='block'
+//             document.querySelector('#leftControls').style.bottom='8px'
+//             document.querySelector('#rightControls').style.display='block'
+//             document.querySelector('#rightControls').style.bottom='8px'
+//         }
+//     }
+// }
 
 document.body.onblur=()=>{
     gamePaused=true;
