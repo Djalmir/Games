@@ -38,6 +38,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
         
+        console.log(face)
         face.getLoginStatus(function(response) {
             statusChangeCallback(response);
         });
