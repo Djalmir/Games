@@ -16,6 +16,7 @@
 </style>
 <body>
     <script>
+        let face
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '129086098436654',
@@ -25,6 +26,8 @@
             });
             
             FB.AppEvents.logPageView();
+            
+            face=FB
         };
     
         (function(d, s, id){
@@ -35,7 +38,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
         
-        FB.getLoginStatus(function(response) {
+        face.getLoginStatus(function(response) {
             statusChangeCallback(response);
         });
     </script>
