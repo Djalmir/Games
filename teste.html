@@ -16,9 +16,6 @@
 </style>
 <body>
     <script>
-        let ssl = await devcert.certificateFor('teste');
-        https.createServer(ssl, app).listen(3000);
-
         window.fbAsyncInit = function() {
             let status
             FB.init({
