@@ -20,6 +20,7 @@
         https.createServer(ssl, app).listen(3000);
 
         window.fbAsyncInit = function() {
+            let status
             FB.init({
                 appId      : '129086098436654',
                 cookie     : true,
@@ -28,7 +29,13 @@
             });
             
             FB.AppEvents.logPageView();
-            
+
+            FB.getLoginStatus(function(response) {
+                status = statusChangeCallback(response);
+            });
+
+            console.log(status)
+
         };
     
         (function(d, s, id){
@@ -42,12 +49,5 @@
 
     <h1>Testes de login</h1>
 
-    <script>
-        document.body.onload=()=>{
-            FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });
-        }
-    </script>
 </body>
 </html>
