@@ -17,7 +17,6 @@
 <body>
     <script>
         window.fbAsyncInit = function() {
-            let status
             FB.init({
                 appId      : '129086098436654',
                 cookie     : true,
@@ -28,11 +27,8 @@
             FB.AppEvents.logPageView();
 
             FB.getLoginStatus(function(response) {
-                status = statusChangeCallback(response);
+                statusChangeCallback(response);
             });
-
-            console.log(status)
-
         };
     
         (function(d, s, id){
