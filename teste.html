@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login com redes sociais</title>
+</head>
+<style>
+    body{
+        text-align: center;
+        background: linear-gradient(to bottom, rgb(124, 181, 255), rgb(217, 161, 255) ) no-repeat;
+        height: 100vh;
+        overflow: hidden;
+        text-shadow: 2px 2px 2px rgba(0,0,0,.5);
+    }
+</style>
+<body>
+    <script>
+        let ssl = await devcert.certificateFor('teste');
+        https.createServer(ssl, app).listen(3000);
+
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '129086098436654',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v6.0'
+            });
+            
+            FB.AppEvents.logPageView();
+            
+        };
+    
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <h1>Testes de login</h1>
+
+    <script>
+        document.body.onload=()=>{
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
+    </script>
+</body>
+</html>
