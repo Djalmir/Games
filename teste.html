@@ -31,7 +31,7 @@
 
           function checkLoginState() {               // Called when a person is finished with the Login Button.
             FB.getLoginStatus(function(response) {   // See the onlogin handler
-                console.log('aqui: '+response)
+                console.log(response)
               statusChangeCallback(response);
             });
           }
