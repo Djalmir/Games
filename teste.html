@@ -8,7 +8,7 @@
 <style>
     body{
         text-align: center;
-        background: linear-gradient(to bottom, rgb(124, 181, 255), rgb(217, 161, 255) ) no-repeat;
+        background: linear-gradient(to bottom, rgb(124, 181, 255), rgb(69, 119, 255) ) no-repeat;
         height: 100vh;
         overflow: hidden;
         text-shadow: 2px 2px 2px rgba(0,0,0,.5);
@@ -31,6 +31,7 @@
 
           function checkLoginState() {               // Called when a person is finished with the Login Button.
             FB.getLoginStatus(function(response) {   // See the onlogin handler
+                console.log('aqui: '+response)
               statusChangeCallback(response);
             });
           }
