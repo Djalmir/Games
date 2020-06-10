@@ -10,12 +10,40 @@
     <style>
         body{
             background-color: rgb(119, 0, 255);
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #container{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 250px;
+            width: 50%;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        a{
+            color: white;
+            text-decoration: none;
+            font-weight: bolder;
+        }
+
+        a:visited{
+            color: lime;
         }
     </style>
 </head>
 <body>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a href="#" onclick="signOut();">Deslogar</a>
+    <div id="container">
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <a href="#" onclick="signOut();">Deslogar</a>
+    </div>
 
     <script>
         function onSignIn(googleUser) {
