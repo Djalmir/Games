@@ -75,10 +75,11 @@
         </footer>
     </div>
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a href="#" onclick="signOut();">Deslogar</a>
+    <a href="#" onclick="signOut();">Deslogar!</a>
 
     <script>
         function onSignIn(googleUser) {
+            console.log('entrou')
             var profile = googleUser.getBasicProfile();
             console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
             console.log('Name: ' + profile.getName());
