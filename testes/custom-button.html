@@ -32,8 +32,7 @@
                     document.getElementById('status').innerHTML =   "<p>Id: "+user.getId()+"</p>"+
                                                                     "<p>Nome: "+user.getName()+"</p>"+
                                                                     "<p>Email: "+user.getEmail()+"</p>"+
-                                                                    `<img src="${user.getImageUrl()}"/>`;
-                    document.getElementById('buttonText').innerText="Sair"                                                                    
+                                                                    `<img src="${user.getImageUrl()}"/>`;                                                                   
                 }, function (error) {
                     alert(JSON.stringify(error, undefined, 2));
                 });
@@ -86,6 +85,19 @@
             font-size: 14px;
             font-weight: bold;
             font-family: 'Roboto', sans-serif;
+        }
+
+        #status{
+            background-color: white;
+            padding: 20px;
+            border-radius: .7rem;
+            box-shadow: 1px 1px 1px grey;
+            text-align: center;
+        }
+
+        #status img{
+            border-radius: 50%;
+            box-shadow: 1px 1px 1px grey;
         }
     </style>
 </head>
