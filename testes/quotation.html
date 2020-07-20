@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotação Prema</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/v-mask/dist/v-mask.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200;400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body{
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: url(https://premacar.com.br/wp-content/uploads/2019/09/hero_bg-1024x424.jpg) no-repeat center;
+            background-attachment: fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        ::-webkit-scrollbar{
+            background: transparent;
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track{
+            background: rgba(96,37,123,.3);
+        }
+
+        ::-webkit-scrollbar-thumb{
+            background: rgb(96,37,123);
+            box-shadow: inset 0px 0px 5px rgba(0,0,0,.5);
+        }
+
+        #app{
+            width: 80%;
+            max-width: 400px;
+            flex: 1;
+            -webkit-tap-highlight-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div#message{
+            position: fixed;
+            top:0;
+            left:0;
+            background:rgb(109,186,154);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            color:white;
+            font-weight: bolder;
+            font-size: 14pt;
+            box-shadow: 0 0 10px rgba(0,0,0,.9);
+            z-index: 4;
+            text-align: center;
+        }
+
+        div#message span{
+            font-size: 40px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        #register, #confirm{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #register div, #confirm div{
+            color: white;
+            text-align: center;
+            margin: 10px auto;
+        }
+
+        h3{
+            font-size: 28px;
+            margin: 0;
+        }
+
+        p{
+            margin: 10px auto;
+            font-weight: 200;
+        }
+
+        form{
+            margin: 10px auto;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 0;
+        }
+
+        form div{
+            left: 0;
+            margin: 0!important;
+            padding: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+        }
+
+        form div button{
+            flex: 1;
+        }
+
+        form div :first-child{
+            margin-left: 5px;
+        }
+
+        form div :nth-child(2){
+            margin-right: 5px;
+        }
+
+        input{
+            margin-bottom: 10px;
+            text-align: center;
+            border-radius: .3rem;
+            padding: 12px;
+            border: 1px solid rgba(0,0,0,.3);
+            outline: none;
+            color: rgb(96,37,123);
+            box-sizing: border-box;
+        }
+
+        input:focus{
+            box-shadow: 0 0 10px rgba(0,0,0,.3);
+        }
+
+        button{
+            margin: 10px 0;
+            border: none;
+            border-radius: .3rem;
+            outline: none;
+            padding: 12px 0;
+            background-color: rgb(109,186,154);
+            color:white;
+            font-weight: bolder;
+            cursor: pointer;
+            transition: .1s;
+        }
+
+        button:hover, button:focus{
+            box-shadow: 0 0 10px rgba(0,0,0,.3);
+        }
+
+        button:active{
+            transform: scale(.98);
+            box-shadow: 0 0 5px rgba(0,0,0,.3);
+        }
+
+        #goBackButton{
+            background-color: rgb(212, 118, 41);
+        }
+
+        #sendAgain{
+            color: white;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: .3rem;
+            outline: none;
+            margin: 10px auto;
+            box-sizing: border-box;
+            font-weight: bolder;
+            text-align: center;
+            user-select: none;
+        }
+
+        #sendAgain:hover{
+            color:rgb(109,186,154);
+        }
+
+        #sendAgain:focus{
+            color:rgb(109,186,154);
+            border:1px solid rgb(96,37,123);
+            margin: 9px auto;
+        }
+
+        #sendAgain:active{
+            color:rgb(86, 146, 121);
+            
+        }
+        
+        .upperCase{
+            text-transform: uppercase;
+        }
+
+        .showHide-enter-active{
+            animation: showHide linear .2s;
+        }
+
+        .showHide-leave-active{
+            animation: showHide linear .2s reverse;
+        }
+
+        @keyframes showHide{
+            from{
+                height: 0;
+                opacity: 0;
+                transform: scaleY(0) translateY(-100px);
+            }
+            to{
+                height:60px;
+                opacity: 1;
+                transform: scaleY(1);
+            }
+        }
+
+        @media (min-width: 640px){
+            #app{
+                max-width: 800px;
+            }
+
+            #register, #confirm{
+                flex-direction: row;
+            }
+
+            #register div, #confirm div{
+                margin: auto 10px;
+                text-align: right;
+                flex: 1;
+            }
+
+            form{
+                margin: auto 10px;
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <transition name="showHide">
+            <div id="message" v-if="message" v-on:click="clearMessage" v-on:touchstart="clearMessage" :style="success?'background:rgb(109,186,154)':'background:rgb(220,124,98)'">
+                <p><span class="fa fa-check-circle" v-if="success"></span>{{message}}</p>
+            </div>
+        </transition>
+        <div id="register" v-if="!filledForm">
+            <div>
+                <h3>DESCUBRA<br>O VALOR DA SUA<br>PRÓXIMA REVISÃO</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aenean mollis utante in semper. Phasellus vestibulum arcu ornare tortor faucibus, eget viverra arcu maximus. Maecenas quis mattis ipsum, dignissim mollis ante.</p>
+            </div>
+            <form autocomplete="off">
+                <input type="text" id="plateInput" placeholder="Placa do veículo" v-mask="'AAA-#N##'" v-model="plate" :class="{upperCase:this.plate.length>0}">
+                <input type="text" placeholder="Quilometragem do veículo" v-mask="mileageMask" v-model="mileage">
+                <input type="text" placeholder="E-mail ou WhatsApp" v-model="email" v-on:blur="setPhoneMask">
+                <input type="text" placeholder="CEP" v-mask="'##.###-###'" v-model="postcode">
+                <button v-on:click.prevent="sendInfos">ENVIAR</button>
+            </form>
+        </div>
+        <div id="confirm" v-else>
+            <div>
+                <h3 v-if="email.startsWith('(')">Confirme seu WhatsApp</h3>
+                <h3 v-else>Confirme seu<br>E-mail</h3>
+                <p>Em instantes você receberá um<br>token de confirmação.<br>Por favor, informe-o para continuar.</p>
+            </div>
+            <form autocomplete="off">
+                <input id="confirmationCodeInput" tabindex="1" type="text" placeholder="Digite o seu código" v-model="confirmation_code">
+                <div>
+                    <button tabindex="3" v-on:click.prevent="confirmEmail">CONTINUAR</button>
+                    <button tabindex="2" id="goBackButton" v-on:click.prevent="filledForm=false">VOLTAR</button>
+                </div>
+                <p id="sendAgain" tabindex="4" v-on:click="sendInfos" v-on:keyup.space="sendInfos" v-on:keyup.enter="sendInfos"><span>Não recebi o código.<br> Envie-me novamente.</span></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        Vue.use(VueMask.VueMaskPlugin)
+        var app = new Vue({
+            el:'#app',
+            data(){
+                return{
+                    baseURL:'http://localhost:3000/',
+                    filledForm:false,
+                    plate:'',
+                    mileage:'',
+                    email:'',
+                    postcode:'',
+                    confirmation_code:'',
+                    message:null,
+                    success:false,
+                    timer:null,
+                    messages:{
+                        "/cell_phone~pattern":"Celular inválido",
+                        "/confirmation_code~maxLength":"Token Inválido!",
+                        "/confirmation_code~minLength":"Token Inválido!",
+                        "/email~format":"Email inválido",
+                        "/mileage~maxLength":"Quilometragem inválida",
+                        "/mileage~minLength":"Quilometragem inválida",
+                        "/mileage~pattern":"Quilometragem inválida",
+                        "/plate~maxLength":"Placa inválida",
+                        "/plate~minLength":"Placa inválida",
+                        "/plate~pattern":"Placa inválida",
+                        "/postcode~pattern":"CEP inválido",
+                        "/quote_id~pattern":"Identificação da cotação inválida. Por favor, preencha seus dados novamente."
+                    }
+                }
+            },
+            mounted(){
+                this.plate=localStorage.getItem('PremaQuotationPlate')||''
+                this.mileage=localStorage.getItem('PremaQuotationMileage')||''
+                this.email=localStorage.getItem('PremaQuotationEmail')||''
+                this.postcode=localStorage.getItem('PremaQuotationPostcode')||''
+            },
+            computed:{
+                mileageMask(){
+                    if(this.mileage.length<6)
+                        return "#.###"
+                    else if(this.mileage.length<7)
+                        return  "##.###"
+                    else
+                        return "###.###"
+                }
+            },
+            methods:{
+                setPhoneMask(){
+                    let reg = new RegExp("[0-9]")
+                    let mail=false
+                    let phone = this.email
+                    phone=phone.split('')
+                    for(let i = 0; i < phone.length; i++){
+                        if(phone[i]==' '||phone[i]=='('||phone[i]==')'||phone[i]=='-'){ 
+                            phone.splice(i,1)
+                            i--
+                        }
+                        else if(!reg.test(phone[i])){
+                            mail=true
+                            break
+                        }
+                    }
+                    if(!mail){
+                        this.email=''
+                        for(let i = 0; i < phone.length; i++){
+                            if(i==0)
+                                this.email=`(${phone[i]}`
+                            else if(i==1)
+                                this.email+=`${phone[i]}) `
+                            else if(phone.length-i==5)
+                                this.email+=`${phone[i]}-`
+                            else
+                                this.email+=`${phone[i]}`
+                        }
+                    }
+                },
+                buildMessage(data){
+                    if(data.length>=1){
+                        this.showMessage(this.messages[data[0].dataPath+'~'+data[0].keyword]||data[0].message,false)
+                    }
+                    else{
+                        this.showMessage(data.error,false)
+                    }
+                },
+                showMessage(message,success){
+                    clearTimeout(this.timer)
+                    if(success)
+                        this.success=true
+                    else
+                        this.success=false
+                    this.message=message
+                    this.timer = setTimeout(()=>{
+                        this.message=null
+                    },5000)
+                },
+                clearMessage(){
+                    this.message=null;
+                    clearTimeout(this.timer)
+                },
+                sendInfos(){
+                    axios.post(`${this.baseURL}review_quotation/register`,{
+                        plate:this.plate.toUpperCase(),
+                        mileage:this.mileage,
+                        email:this.email.startsWith('(')?undefined:this.email.toLowerCase(),
+                        cell_phone:this.email.startsWith('(')?this.email:undefined,
+                        postcode:this.postcode
+                    })
+                        .then((res)=>{
+                            localStorage.setItem('PremaQuotationPlate',this.plate.toUpperCase())
+                            localStorage.setItem('PremaQuotationMileage',this.mileage)
+                            localStorage.setItem('PremaQuotationEmail',this.email)
+                            localStorage.setItem('PremaQuotationPostcode',this.postcode)
+
+                            localStorage.setItem('PremaQuotationId',res.data.quote_id)
+                            this.confirmation_code=''
+                            this.filledForm=true
+                        })
+                        .catch((err)=>{
+                            if(err=='Error: Network Error')
+                                this.showMessage('Houve uma falha na conexão com o servidor... Por favor tente novamente mais tarde.',false)
+                            else{
+                                this.buildMessage(err.response.data)
+                            }
+                        })
+                },
+                confirmEmail(){
+                    axios.post(`${this.baseURL}review_quotation/account_confirmation`,{
+                        quote_id:localStorage.getItem('PremaQuotationId'),
+                        confirmation_code:this.confirmation_code
+                    })
+                        .then((res)=>{
+                            javascript:location.href='./quotation-return.html'
+                            this.confirmation_code=this.plate.toUpperCase()
+                            document.getElementById('confirmationCodeInput').value=this.plate.toUpperCase()
+                        })
+                        .catch((err)=>{
+                            if(err=='Error: Network Error')
+                                this.showMessage('Houve uma falha na conexão com o servidor... Por favor tente novamente mais tarde.',false)
+                            else{
+                                this.buildMessage(err.response.data)
+                            }
+                        })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
