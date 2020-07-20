@@ -585,6 +585,7 @@
             beforeMount(){
                 axios.get(`${this.baseURL}review_quotation/list_one/${localStorage.getItem('PremaQuotationId')}`)
                     .then((res)=>{
+                        console.log(res)
                         let model = res.data.model.split(' ')[0]
                         let version = res.data.model.split(' ')
                         version.shift()
