@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotação Prema</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200;400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body{
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+        }
+
+        ::-webkit-scrollbar{
+            background: transparent;
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track{
+            background: rgba(96,37,123,.3);
+        }
+
+        ::-webkit-scrollbar-thumb{
+            background: rgb(96,37,123);
+            box-shadow: inset 0px 0px 5px rgba(0,0,0,.5);
+        }
+
+        #app{
+            flex: 1;
+            -webkit-tap-highlight-color: transparent;
+            background-color: rgb(243,243,243);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0 0;
+            color: rgb(96,37,123);
+        }
+
+        div#message{
+            position: fixed;
+            top:0;
+            left:0;
+            background:rgb(109,186,154);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            color:white;
+            font-weight: bolder;
+            font-size: 14pt;
+            box-shadow: 0 0 10px rgba(0,0,0,.9);
+            z-index: 4;
+        }
+
+        div#message span{
+            font-size: 40px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        section{
+            width: 90%;
+            flex: 1;
+            transition: .5s;
+            padding-bottom: 40px;
+        }
+
+        #vehicleTitle{
+            font-weight: bolder;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        #nextReviewH3{
+            font-weight: 400;
+        }
+
+        #vehicleData{
+            background-color: rgb(248,248,248);
+            width: 70%;
+            margin: 0 auto 30px;
+            border-radius: .3rem;
+            padding: 20px;
+            transition: .5s;
+        }
+
+        #vehicleData p{
+            margin: 10px;
+        }
+
+        #vehicleData span{
+            white-space: nowrap;
+        }
+
+        #reviewsData{
+            background-color: rgb(248,248,248);
+            border-radius: .3rem;
+            padding: 20px 0;
+            margin: 0 auto 20px;
+        }
+
+        #itemsList{
+            display: flex;
+            font-size: 8pt;
+            justify-content: space-between;
+        }
+
+        .arrowDiv{
+            background-color: rgb(96,37,123);
+            width: 20px;
+            color: rgb(179,89,222);
+            font-size: 30px;
+            font-weight: bolder;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        #leftArrowDiv{
+            border-radius: 0 .3rem .3rem 0;
+        }
+
+        #rightArrowDiv{
+            border-radius: .3rem 0 0 .3rem;
+        }
+
+        table{
+            width:80%;
+            border-spacing: 0;
+        }
+
+        tr{
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        table tr:nth-of-type(even){
+            background-color: rgb(243,243,243);
+        }        
+
+        tr :first-child:not(span){
+            flex: 1;
+            text-align: left;
+            padding: 10px;
+            max-width: 120px;
+        }
+
+        tr *:not(:first-child){
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 120px;
+        }
+
+
+        .greenText{
+            color: rgb(109,186,154);
+        }
+
+        .lineThrough{
+            text-decoration: line-through;
+        }
+
+        .onlyDesktop{
+            display: none!important;
+        }
+
+        .selectedTop{
+            background-color: rgba(0,0,0,.05);
+            border-top: 1px solid rgb(109,186,154);
+            border-left: 1px solid rgb(109,186,154);
+            border-right: 1px solid rgb(109,186,154);
+        }
+
+        .selected{
+            background-color: rgba(0,0,0,.05);
+            border-left: 1px solid rgb(109,186,154);
+            border-right: 1px solid rgb(109,186,154);
+        }
+
+        .selectedBottom{
+            background-color: rgba(0,0,0,.05);
+            border-left: 1px solid rgb(109,186,154);
+            border-right: 1px solid rgb(109,186,154);
+            border-bottom: 1px solid rgb(109,186,154);
+        }
+
+        #pricesGraph{
+            background-color: rgb(248,248,248);
+            border-radius: .3rem;
+            padding: 20px;
+            margin: 0 auto 10px;
+        }
+
+        #graphOuter{
+            width: 100%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            padding: 30px 0 0;
+            overflow: auto;
+        }
+
+        .graphInnerContainer{
+            flex: 1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .graphInner{
+            flex: 1;
+            display: flex;
+            flex-direction: column-reverse;
+            margin: 0;
+            padding: 10px 0;
+            color: rgb(219,219,219);
+            font-weight: bold;
+            font-size: 8pt;
+        }
+
+        .graphPrice{
+            margin: 10px 0 0;
+            color: rgb(96,37,123);
+        }
+
+        .graphColumn{
+            width: 80%;
+            max-width: 50px;
+            margin: 10px auto 0;
+            border-radius: .4rem .4rem 0 0;
+            background-color: rgb(219,219,219);
+        }
+
+        .graphMileage{
+            transform: rotateZ(-90deg);
+            margin: 15px 0;
+            white-space: nowrap;
+        }
+
+        .graphFloor{
+            height: 10px;            
+            background-color: rgb(109,186,154);
+        }
+
+        .graphInnerSelected{
+            background-color: rgb(243,243,243);
+            color:rgb(190,190,190);
+        }
+
+        .graphColumnSelected{
+            background-color: rgb(96,37,123);
+        }
+
+        button{
+            margin: 10px 0;
+            border: none;
+            border-radius: .3rem;
+            outline: none;
+            padding: 12px 0;
+            background-color: rgb(109,186,154);
+            color:white;
+            font-weight: bolder;
+            cursor: pointer;
+            width: 100%;
+            transition: .1s;
+        }
+
+        button:hover, button:focus{
+            box-shadow: 0 0 10px rgba(0,0,0,.3);
+        }
+
+        button:active{
+            transform: scale(.98);
+            box-shadow: 0 0 5px rgba(0,0,0,.3);
+        }
+
+        .showHide-enter-active{
+            animation: showHide linear .2s;
+        }
+
+        .showHide-leave-active{
+            animation: showHide linear .2s reverse;
+        }
+
+        @keyframes showHide{
+            from{
+                height: 0;
+                opacity: 0;
+                transform: scaleY(0) translateY(-100px);
+            }
+            to{
+                height:60px;
+                opacity: 1;
+                transform: scaleY(1);
+            }
+        }
+
+        #shadow{
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-color:rgb(96,37,123);
+            z-index: 1;
+        }
+
+        #loadingOuter{
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .loadingSpinner{
+            animation: rotate linear 2s infinite;
+            color: rgb(255,255,255);
+        }
+
+        @keyframes rotate{
+            0%{
+                transform: rotateZ(0);
+                opacity: 1;
+            }
+            25%{
+                opacity: .7;
+            }
+            50%{
+                opacity: 1;
+            }
+            75%{
+                opacity: .7;
+            }
+            100%{
+                transform: rotateZ(360deg);
+                opacity: 1;
+            }
+        }
+
+        #noDataFoundSection{
+            width: 100%;
+            padding: 0;
+        }
+
+        #noDataFoundTop{
+            padding: 0 30px;
+            box-sizing: border-box;
+        }
+
+        #noDataFoundTop h3{
+            font-weight: bolder;
+            font-size: 24px;
+        }
+
+        #noDataFoundMiddle{
+            width: 100%;
+            padding: 30px 30px 0;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom, rgb(243,243,243) 30%, rgb(96,37,123)30%);
+        }
+
+        #noDataFoundMiddle :first-child{
+            display: none;
+        }
+
+        #noDataFoundMiddle :nth-child(2){
+            max-width: 100%;
+        }
+
+        #noDataFoundBottom{
+            width: 100%;
+            padding: 0 30px;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom, rgb(96,37,123) 40%, white 40%);
+        }
+
+        #noDataFoundBottom img{
+            max-width: 70%;
+        }
+
+        @media (min-width: 600px){
+            .onlyDesktop{
+                display: flex!important;
+            }
+
+            #noDataFoundMiddle :first-child{
+                display: block;
+                margin: auto;
+                max-width: 100%;
+            }
+
+            #noDataFoundMiddle :nth-child(2){
+                display: none;
+            }
+
+            #noDataFoundBottom{
+                display: none;
+            }
+        }
+
+        @media (min-width: 800px){
+            #itemsList{
+                font-size: 12pt;
+            }
+
+            tr :first-child:not(span){
+                max-width: 200px;
+            }
+            
+            .graphInner{
+                font-size: 12pt;
+            }
+
+            .graphMileage{
+                margin: 30px 0;
+            }
+        }
+
+        @media (min-width: 1280px){
+            section{
+                width: 70%;
+            }
+
+            #vehicleTitle{
+                display: block;
+            }
+
+            #vehicleData{
+                width: 80%;
+                background-color: rgb(96,37,123);
+                color: white;
+                display: flex;
+                justify-content: space-evenly;
+                padding: 5px 20px;
+            }
+
+            #graphOuter{
+                width: 80%;
+            }
+
+            button{
+                width: 75%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <transition name="showHide">
+            <div id="message" v-if="message" v-on:click="clearMessage" v-on:touchstart="clearMessage" :style="success?'background:rgb(109,186,154)':'background:rgb(220,124,98)'">
+                <p><span class="fa fa-check-circle" v-if="success"></span>{{message}}</p>
+            </div>
+        </transition>
+        <section v-if="!loading&&foundData">
+            <h3 id="vehicleTitle">INFORMAÇÕES DO SEU VEÍCULO</h3>
+            <div id="vehicleData">
+                <p><strong>VEÍCULO: </strong> <span>{{quotation.vehicle.manufacturer.toUpperCase()}} {{quotation.vehicle.model.toUpperCase()}}</span></p>
+                <p><strong>VERSÃO: </strong> <span style="white-space: normal;">{{quotation.vehicle.version?quotation.vehicle.version.toUpperCase():''}}</span></p>
+                <p><strong>ANO: </strong> <span>{{quotation.vehicle.year_model}}</span></p>
+                <p><strong>PLACA: </strong> <span>{{quotation.vehicle.plate}}</span></p>
+                <p><strong>QUILOMETRAGEM: </strong> <span>{{quotation.vehicle.vehicle_mileage}} Km</span></p>
+            </div>
+
+            <div id="reviewsData">
+                <h3 id="nextReviewH3">SUA PRÓXIMA REVISÃO É DE <strong style="white-space: nowrap;">{{recommendedReview}} Km</strong></h3>
+                <div id="itemsList">
+                    <div class="arrowDiv" id="leftArrowDiv"  v-if="smallerThan" v-on:click="selectPrior"><i class="fa fa-angle-left"></i></div>
+                    <div v-else></div>
+                    <table>
+                        <tr>
+                            <th>ITENS PARA TROCAR</th>
+                            <th class="onlyDesktop" v-if="smallerThan">{{priorTableReview.showMileage}} Km</th>
+                            <th class="onlyDesktop" v-else></th>
+                            <th class="greenText selectedTop">{{selectedTableReview.showMileage}} Km</th>
+                            <th class="onlyDesktop" v-if="biggerThan">{{nextTableReview.showMileage}} Km</th>
+                            <th class="onlyDesktop" v-else></th>
+                        </tr>
+                        
+                        <template v-for="(exchangeItem, index) in exchangeItems" :key="index+'exchange'">
+                            <tr v-if="isDesktop||goesInReview('selected','exchange',exchangeItem)">
+                                <td>{{exchangeItem}}</td>
+                                <td class="onlyDesktop"  v-if="smallerThan">
+                                    <span class="fa fa-check" v-if="goesInReview('prior','exchange',exchangeItem)"></span>
+                                    <span v-else>-</span>
+                                </td>
+                                <td class="onlyDesktop" v-else></td>
+                                <td class="greenText selected">
+                                    <span class="fa fa-check" v-if="goesInReview('selected','exchange',exchangeItem)"></span>
+                                    <span v-else>-</span>
+                                </td>
+                                <td class="onlyDesktop" v-if="biggerThan">
+                                    <span class="fa fa-check" v-if="goesInReview('next','exchange',exchangeItem)"></span>
+                                    <span v-else>-</span>
+                                </td>
+                                <td class="onlyDesktop" v-else></td>
+                            </tr>
+                        </template>
+                        
+                        <tr>
+                            <td></td>
+                            <td class="onlyDesktop"></td>
+                            <td class="selected"></td>
+                            <td class="onlyDesktop"></td>
+                        </tr>
+
+                        <tr>
+                            <th>ITENS PARA INSPECIONAR</th>
+                            <td class="onlyDesktop"></td>
+                            <td class="selected"></td>
+                            <td class="onlyDesktop"></td>
+                        </tr>
+
+                        <template v-for="(inspectItem, index) in inspectItems" :key="index+'inpect'">
+                            <tr v-if="isDesktop||goesInReview('selected','inspect',inspectItem)">
+                                <td>{{inspectItem}}</td>
+                                <td class="onlyDesktop"  v-if="smallerThan">
+                                    <span class="fa fa-check" v-if="goesInReview('prior','inspect',inspectItem)"></span>
+                                    <span v-else>-</span>
+                                </td>
+                                <td class="onlyDesktop" v-else></td>
+                                <td class="greenText selected">
+                                    <span class="fa fa-check" v-if="goesInReview('selected','inspect',inspectItem)"></span>
+                                    <span v-else>-</span>
+                                </td>
+                                <td class="onlyDesktop" v-if="biggerThan">
+                                    <span class="fa fa-check" v-if="goesInReview('next','inspect',inspectItem)"></span>
+                                    <span v-else>-</span>
+                                </td>
+                                <td class="onlyDesktop" v-else></td>
+                            </tr>
+                        </template>
+
+                        <tr>
+                            <td></td>
+                            <td class="onlyDesktop"></td>
+                            <td class="selected"></td>
+                            <td class="onlyDesktop"></td>
+                        </tr>
+
+                        <tr>
+                            <td >CON&shy;CES&shy;SIO&shy;NÁ&shy;RI&shy;AS</td>
+                            <td class="lineThrough onlyDesktop"  v-if="smallerThan">R$ {{priorTableReview.dealership_price}}</td>
+                            <td class="onlyDesktop" v-else></td>
+                            <td class="greenText lineThrough selected">R$ {{selectedTableReview.dealership_price}}</td>
+                            <td class="lineThrough onlyDesktop" v-if="biggerThan">R$ {{nextTableReview.dealership_price}}</td>
+                            <td class="onlyDesktop" v-else></td>
+                        </tr>
+
+                        <tr>
+                            <td>PREMA</td>
+                            <td class="onlyDesktop"  v-if="smallerThan">R$ {{priorTableReview.prema_price}}</td>
+                            <td class="onlyDesktop" v-else></td>
+                            <td class="greenText selectedBottom">R$ {{selectedTableReview.prema_price}}</td>
+                            <td class="onlyDesktop" v-if="biggerThan">R$ {{nextTableReview.prema_price}}</td>
+                            <td class="onlyDesktop" v-else></td>
+                        </tr>
+                        
+                    </table>
+                    <div class="arrowDiv" id="rightArrowDiv" v-if="biggerThan" v-on:click="selectNext"><i class="fa fa-angle-right"></i></div>
+                    <div v-else></div>
+                </div>
+            </div>
+
+            <div id="pricesGraph">
+                <h3><strong>VALOR APROXIMADO</strong><br>DAS SUAS PRÓXIMAS REVISÕES</h3>
+                <div id="graphOuter">
+                    <div v-for="(review, index) in graphReviews" :key='index' class="graphInnerContainer">
+                        <div class="graphInner" :class="{graphInnerSelected:review.showMileage==selectedTableReview.showMileage}">
+                            <p class="graphPrice">R$<br>{{review.prema_price}}</p>
+                            <div class="graphFloor"></div>
+                            <div class="graphColumn" :class="{graphColumnSelected:review.showMileage==selectedTableReview.showMileage}" :style="setHeight(review)"></div>
+                            <p class="graphMileage">{{review.showMileage}} Km</p>
+                        </div>
+                    </div>
+                </div>
+                <sup>Estes preços podem sofrer alterações.</sup>
+            </div>
+
+            <button v-on:click="buyReview">COMPRAR REVISÃO</button>
+
+        </section>
+        <section id="noDataFoundSection" v-if="!loading&&!foundData">
+            <div id="noDataFoundTop">
+                <img :src="images.magnifier" alt="Image">
+                <h3>RECEBEMOS SEUS DADOS E ESTAMOS PROVIDENCIANDO A COTAÇÃO DO SEU {{vehicle.manufacturer}} {{vehicle.model}}</h3>
+                <p>
+                    Recebemos os seus dados e estamos providenciando a sua cotação.<br>
+                    Nossos consultores estão verificando o manual do proprietário do seu veículo.
+                </p>
+                <p>
+                    Em breve retornaremos a cotação com os itens necessários para troca<br>
+                    e inspeção na revisão do seu veículo.
+                </p>
+            </div>
+            <div id="noDataFoundMiddle">
+                <img :src="images.noteAndPhone" alt="Image">
+                <img :src="images.note" alt="Image">
+            </div>
+            <div id="noDataFoundBottom">
+                <img :src="images.phone" alt="Image">
+            </div>
+        </section>
+        <div id="shadow" v-if="loading"></div>
+        <div id="loadingOuter" v-if="loading">
+            <div id="loadingInner">
+                <i class="fa fa-spinner fa-2x loadingSpinner"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data(){
+                return{
+                    baseURL:'http://localhost:3000/',
+                    loading:true,
+                    message:null,
+                    success:false,
+                    timer:null,
+                    user:{
+                        email:localStorage.getItem('PremaQuotationEmail'),
+                        postcode:localStorage.getItem('PremaQuotationPostcode')
+                    },
+                    quotation:{
+                        vehicle:{},
+                        reviews:[{}]
+                    },
+                    recommendedReview:'',
+                    priorTableReview:{},
+                    selectedTableReview:{},
+                    nextTableReview:{},
+                    graphReviews:[],
+                    exchangeItems:[],
+                    inspectItems:[],
+                    isDesktop:false,
+                    foundData:false,
+                    images:{
+                        magnifier:`D:/Área de Trabalho/Prema/Projeto Prema - Arquivos diversos/Imagens prema/site/magnifier.png`,
+                        noteAndPhone:`D:/Área de Trabalho/Prema/Projeto Prema - Arquivos diversos/Imagens prema/site/noteAndPhone.png`,
+                        note:`D:/Área de Trabalho/Prema/Projeto Prema - Arquivos diversos/Imagens prema/site/note.png`,
+                        phone:`D:/Área de Trabalho/Prema/Projeto Prema - Arquivos diversos/Imagens prema/site/phone.png`,
+                    }
+                }
+            },
+            beforeMount(){
+                let queryString = window.location.search;
+                let urlParams = new URLSearchParams(queryString)
+                axios.get(`${this.baseURL}review_quotation/list_one/${urlParams.get('quotation')}`)
+                    .then((res)=>{
+                        if(res.data.message){
+                            let model = res.data.model.split(' ')[0]
+                            this.vehicle={
+                                manufacturer:res.data.manufacturer,
+                                model:model
+                            }
+                            this.loading=false
+                        }
+                        else{
+                            this.foundData=true
+                            let model = res.data.model.split(' ')[0]
+                            let version = res.data.model.split(' ')
+                            version.shift()
+                            version=version.join(' ')
+                            this.quotation={
+                                _id:res.data._id,
+                                vehicle:{
+                                    manufacturer:res.data.manufacturer,
+                                    model:model,
+                                    version:version,
+                                    plate:res.data.plate,
+                                    vehicle_mileage:res.data.vehicle_mileage,
+                                    year_fab:res.data.year_fab,
+                                    year_model:res.data.year_model,
+                                    fuel_type:res.data.fuel_type
+                                },
+                                reviews:res.data.reviews
+                            }
+
+                            let mileage = this.quotation.vehicle.vehicle_mileage.split('.')[0]
+                        
+                            if(mileage.length==3){
+                                let hundred = Number(mileage[0])
+                                let ten = Number(mileage[1])
+                                let unit = Number(mileage[2])
+                                if(unit>=5){
+                                    ten++
+                                    if (ten>=10){
+                                        hundred++
+                                        ten=0
+                                    }
+                                }
+                                this.recommendedReview=''+hundred+ten+'0.000'
+                            }
+                            else if(mileage.length==2){
+                                let ten = Number(mileage[0])
+                                let unit = Number(mileage[1])
+                                if(unit>=5)
+                                    ten++
+                                this.recommendedReview=''+ten+'0.000'
+                            }
+                            else if(mileage.length==1){
+                                this.recommendedReview='10.000'
+                            }
+
+                            mileage = this.recommendedReview.split('.')[0]
+
+                            if(mileage.length>=3){
+                                if(mileage[1]!='0')
+                                    this.selectedTableReview=this.quotation.reviews.find(review=>review.mileage==''+mileage[1]+mileage[2]+'000')
+                                else
+                                    this.selectedTableReview=this.quotation.reviews.find(review=>review.mileage=='100000')
+                            }
+                            else if(mileage.length==2)
+                                this.selectedTableReview=this.quotation.reviews.find(review=>review.mileage==mileage+'000')
+                            else if(mileage.length==1)
+                                this.selectedTableReview=this.quotation.reviews.find(review=>review.mileage=='10000')
+
+                            if(this.selectedTableReview.mileage>10000)
+                                this.priorTableReview=this.quotation.reviews.find(review=>review.mileage==Number(this.selectedTableReview.mileage)-10000)
+                            else
+                                this.priorTableReview=this.quotation.reviews.find(review=>review.mileage==100000)
+
+                            if(this.selectedTableReview.mileage<100000)
+                                this.nextTableReview=this.quotation.reviews.find(review=>review.mileage==Number(this.selectedTableReview.mileage)+10000)
+                            else
+                                this.nextTableReview=this.quotation.reviews.find(review=>review.mileage==10000)
+
+                            mileage = Number(this.selectedTableReview.mileage)
+
+                            let showMileage = Number(this.recommendedReview.split('.')[0])
+
+                            for(let i = 0; i < 2; i++){
+                                if(mileage>10000)
+                                    mileage-=10000
+                                else if(String(showMileage).length==3){
+                                    mileage=100000
+                                }
+                                else
+                                    break                                
+                            }
+                            
+                            if(showMileage>20)
+                                showMileage-=20
+                            else if(showMileage>10)
+                                showMileage-=10
+
+                            let counter = 0
+                            while(counter<10){
+                                let review = this.quotation.reviews[this.quotation.reviews.indexOf(this.quotation.reviews.find(review=>review.mileage==mileage))]
+                                review.showMileage=showMileage+'.000'
+
+                                showMileage+=10
+                                mileage+=10000
+                                if(mileage>100000)
+                                    mileage=10000
+                                counter++
+                            }
+
+                            if(this.quotation.reviews.find(review=>review.mileage==110000)){
+                                let review = this.quotation.reviews.find(review=>review.mileage==10000)
+                                if(Number(review.showMileage.split('.')[0])>10){
+                                    review.dealership_price=this.quotation.reviews.find(review=>review.mileage==110000).dealership_price
+                                    review.prema_price=this.quotation.reviews.find(review=>review.mileage==110000).prema_price
+                                }
+                            }
+
+                            if(this.quotation.reviews.find(review=>review.mileage==120000)){
+                                let review = this.quotation.reviews.find(review=>review.mileage==20000)
+                                if(Number(review.showMileage.split('.')[0])>20){
+                                    review.dealership_price=this.quotation.reviews.find(review=>review.mileage==120000).dealership_price
+                                    review.prema_price=this.quotation.reviews.find(review=>review.mileage==120000).prema_price
+                                }
+                            }
+
+                            for(let x = 0; x<this.quotation.reviews.length; x++){
+                                for(let y = 0; y<this.quotation.reviews[x].change_items.length; y++){
+                                    if(!this.exchangeItems.find(item=>item==this.quotation.reviews[x].change_items[y].name))
+                                        this.exchangeItems.push(this.quotation.reviews[x].change_items[y].name)
+                                }
+                                for(let y = 0; y<this.quotation.reviews[x].inspect_items.length; y++){
+                                    if(!this.inspectItems.find(item=>item==this.quotation.reviews[x].inspect_items[y].name))
+                                        this.inspectItems.push(this.quotation.reviews[x].inspect_items[y].name)
+                                }
+
+                                this.quotation.reviews[x].dealership_price=Number(this.quotation.reviews[x].dealership_price).toFixed(2).replace('.',',')
+                                this.quotation.reviews[x].prema_price=Number(this.quotation.reviews[x].prema_price).toFixed(2).replace('.',',')
+                            }
+
+                            this.quotation.reviews=this.quotation.reviews.sort((a,b)=>{
+                                return Number(a.showMileage)-Number(b.showMileage)
+                            })
+
+                            for(let i = 0; i<10; i++){
+                                this.graphReviews.push(this.quotation.reviews[i])
+                            }
+
+                            this.loading=false
+                        }
+                    })
+                    .catch((err)=>{
+                        if(err=='Error: Network Error')
+                            this.showMessage('Houve uma falha na conexão com o servidor... Por favor tente novamente mais tarde.')
+                        else{
+                            if(err.response.data.message.startsWith("{")){
+                                let message = JSON.parse(err.response.data.message)
+                                let model = message.model.split(' ')[0]
+                                this.vehicle={
+                                    manufacturer:message.manufacturer,
+                                    model:model
+                                }
+                                this.loading=false
+                            }
+                            else
+                                this.showMessage("Houve um erro inesperado... Por favor, tente novamente mais tarde.")
+                        }
+                    })
+            },
+            mounted(){
+                this.resize()
+                window.addEventListener('resize',this.resize)
+            },
+            computed:{
+                smallerThan(){
+                    return Number(this.priorTableReview.showMileage)<Number(this.selectedTableReview.showMileage)
+                },
+                biggerThan(){
+                    return Number(this.nextTableReview.showMileage)>Number(this.selectedTableReview.showMileage)
+                }
+            },
+            methods:{
+                showMessage(message,success){
+                    clearTimeout(this.timer)
+                    if(success)
+                        this.success=true
+                    else
+                        this.success=false
+                    this.message=message
+                    this.timer = setTimeout(()=>{
+                        this.message=null
+                    },5000)
+                },
+                clearMessage(){
+                    this.message=null;
+                    clearTimeout(this.timer)
+                },
+                goesInReview(rev,type,item){
+                    if(type=='exchange'){
+                        if(rev=='prior'){
+                            return this.priorTableReview.change_items.find(i=>i.name==item)
+                        }
+                        if(rev=='selected'){
+                            return this.selectedTableReview.change_items.find(i=>i.name==item)
+                        }
+                        if(rev=='next'){
+                            return this.nextTableReview.change_items.find(i=>i.name==item)
+                        }
+                    }
+                    else{
+                        if(rev=='prior'){
+                            return this.priorTableReview.inspect_items.find(i=>i.name==item)
+                        }
+                        if(rev=='selected'){
+                            return this.selectedTableReview.inspect_items.find(i=>i.name==item)
+                        }
+                        if(rev=='next'){
+                            return this.nextTableReview.inspect_items.find(i=>i.name==item)
+                        }
+                    }
+                },
+                setHeight(review){
+                    let price = Number(review.prema_price.split(',')[0])
+                    return `height: ${(price)/10}px;`
+                },
+                selectPrior(){
+                    if(this.priorTableReview.mileage>10000)
+                        this.priorTableReview=this.quotation.reviews.find(review=>review.mileage==Number(this.priorTableReview.mileage)-10000)
+                    else
+                        this.priorTableReview=this.quotation.reviews.find(review=>review.mileage==100000)
+                    
+                    if(this.selectedTableReview.mileage>10000)
+                        this.selectedTableReview=this.quotation.reviews.find(review=>review.mileage==Number(this.selectedTableReview.mileage)-10000)
+                    else
+                        this.selectedTableReview=this.quotation.reviews.find(review=>review.mileage==100000)
+
+                    if(this.nextTableReview.mileage>10000)
+                        this.nextTableReview=this.quotation.reviews.find(review=>review.mileage==Number(this.nextTableReview.mileage)-10000)
+                    else
+                        this.nextTableReview=this.quotation.reviews.find(review=>review.mileage==100000)
+                },
+                selectNext(){
+                    if(this.priorTableReview.mileage<100000)
+                        this.priorTableReview=this.quotation.reviews.find(review=>review.mileage==Number(this.priorTableReview.mileage)+10000)
+                    else
+                        this.priorTableReview=this.quotation.reviews.find(review=>review.mileage==10000)
+                    
+                    if(this.selectedTableReview.mileage<100000)
+                        this.selectedTableReview=this.quotation.reviews.find(review=>review.mileage==Number(this.selectedTableReview.mileage)+10000)
+                    else
+                        this.selectedTableReview=this.quotation.reviews.find(review=>review.mileage==10000)
+
+                    if(this.nextTableReview.mileage<100000)
+                        this.nextTableReview=this.quotation.reviews.find(review=>review.mileage==Number(this.nextTableReview.mileage)+10000)
+                    else
+                        this.nextTableReview=this.quotation.reviews.find(review=>review.mileage==10000)
+                },
+                resize(){
+                    this.isDesktop = window.innerWidth > 600 ? true : false
+                },
+                buyReview(){
+                    let reg = new RegExp("[0-9]")
+                    let mail=false
+                    let phone = this.user.email
+                    let phone_area_code = ''
+                    let phone_number = ''
+                    phone=phone.split('')
+                    for(let i = 0; i < phone.length; i++){
+                        if(phone[i]==' '||phone[i]=='('||phone[i]==')'||phone[i]=='-'){ 
+                            phone.splice(i,1)
+                            i--
+                        }
+                        else if(!reg.test(phone[i])){
+                            mail=true
+                            break
+                        }
+                    }
+                    if(!mail){
+                        this.user.email=''
+                        for(let i = 0; i < phone.length; i++){
+                            if(i<=1)
+                                phone_area_code+=`${phone[i]}`
+                            else
+                                phone_number+=`${phone[i]}`
+                        }
+                    }
+
+                    var quotationData = `<?xml version="1.0"?>
+                    <checkout>
+                        <sender>
+                            ${mail?`<email>${this.user.email}</email>`:
+                            `<phone>
+                                <areaCode>${phone_area_code}</areaCode>
+                                <number>${phone_number}</number>
+                            </phone>`}
+                        </sender>
+                        <currency>BRL</currency>
+                        <items>
+                            <item>
+                                <id>${this.quotation._id}</id>
+                                <description>Revisão de ${this.selectedTableReview.showMileage} Km - ${this.quotation.vehicle.manufacturer} ${this.quotation.vehicle.model} ${this.quotation.vehicle.version} ${this.quotation.vehicle.year_model}</description>
+                                <amount>${this.selectedTableReview.prema_price.replace(',','.')}</amount>
+                                <quantity>1</quantity>
+                                <weight>0</weight>
+                            </item>
+                        </items>
+                        <redirectURL>https://homolog.premacar.com.br</redirectURL>
+                        <reference>quotation-${this.quotation._id}</reference>
+                        <shipping>
+                            <addressRequired>false</addressRequired>
+                        </shipping>
+                        <timeout>60</timeout>
+                        <maxAge>3600</maxAge>
+                        <maxUses>1</maxUses>
+                        <receiver>
+                            <email>financeiro@premacar.com.br</email>
+                        </receiver>
+                        <enableRecovery>false</enableRecovery>
+                    </checkout>`;
+
+                    console.log(quotationData)
+
+                    axios.post(`https://cors-anywhere.herokuapp.com/https://ws.pagseguro.uol.com.br/v2/checkout?email=financeiro@premacar.com.br&token=6cfb4f35-b183-4773-8ef2-fe043a466cb92fe273c349ed88bbea5af14fe1b1dfdfde00-7354-4d7f-8769-0a24b9804079`,
+                        quotationData
+                    ,{
+                        headers:{
+                            'Content-Type': 'application/xml'
+                        }
+                    })
+                        .then((res)=>{
+                            console.log(res.data)
+                        })
+                        .catch((err)=>{
+                            console.log(err)
+                        })
+                }
+            },
+            beforeDestroy(){
+                window.removeEventListener('resize',this.resize)
+            }
+        })
+    </script>
+</body>
+</html>
