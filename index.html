@@ -1,78 +1,81 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="imgs/ico.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="index.css">
-    <title>DJ Games</title>
-    <meta name="description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
-    <link rel="canonical" href="https://djgames.com.br">
-    <meta name="author" content="Djalmir Miodutzki">
-    <meta name="robots" content="index, nofollow">
-    
-    <meta itemprop="name" content="DJ Games - Jogos de navegador criados em Javascript">
-    <meta itemprop="description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
-    <meta itemprop="image" content="https://djgames.com.br/imgs/djGit.png">
-    <link href="https://github.com/Djalmir" rel="publisher">
 
-    <meta property="og:locale" content="pt_br">
-    <meta property="og:title" content="DJ Games - Jogos de navegador criados em Javascript">
-    <meta property="og:description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
-	<meta property="og:url" content="https://djgames.com.br">
-	<meta property="og:site_name" content="DJ Games">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://djgames.com.br/imgs/djGit.png">
-    <meta property="og:image:type" content="image/jpg">
-    
-    <meta name="twitter:title" content="DJ Games - Jogos de navegador criados em Javascript">
-    <meta name="twitter:description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
-    <meta name="twitter:url" content="https://djgames.com.br">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:image" content="https://djgames.com.br/imgs/djGit.png">
-    <meta name="twitter:creator" content="@DMiodutzki">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="shortcut icon" href="imgs/ico.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="index.css">
+		<title>DJ Games</title>
+		<meta name="description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
+		<link rel="canonical" href="https://djgames.com.br">
+		<meta name="author" content="Djalmir Miodutzki">
+		<meta name="robots" content="index, nofollow">
 
-    <meta name="theme-color" content="#0a1432">
-    <link rel="apple-touch-icon" href="./imgs/apple-touch-icon.png">
-    <link rel="manifest" href="./manifest.json" crossOrigin="use-credentials">
+		<meta itemprop="name" content="DJ Games - Jogos de navegador criados em Javascript">
+		<meta itemprop="description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
+		<meta itemprop="image" content="https://djgames.com.br/imgs/djGit.png">
+		<link href="https://github.com/Djalmir" rel="publisher">
 
-    <script>
-        if('serviceWorker' in navigator){
-            navigator.serviceWorker.register('./sw.js')
-        }
-    </script>
+		<meta property="og:locale" content="pt_br">
+		<meta property="og:title" content="DJ Games - Jogos de navegador criados em Javascript">
+		<meta property="og:description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
+		<meta property="og:url" content="https://djgames.com.br">
+		<meta property="og:site_name" content="DJ Games">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://djgames.com.br/imgs/djGit.png">
+		<meta property="og:image:type" content="image/jpg">
 
-</head>
-<body>
-    <div id='interface'>
-        <header>
-            <nav>
-                <h1>Menu Principal</h1>
-                <ul>
-                    <li onclick="javascript:location.href='studies.html'">
-                        Estudos
-                    </li>
-                    <li onclick="javascript:location.href='index.html'">
-                        Jogos
-                    </li>
-                    <li onclick="javascript:location.href='contacts.html'">
-                        Contatos
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <section id='screen'>
-            <iframe id="iframe" title="games"></iframe>
-            <!-- <img src="imgs/fullScreen.png" alt="fullScreenButton" id="fullScreenButton" onclick="fullScreen()"> -->
-        </section>
-        <footer>
-            <p>
-                Copyright &copy; 2018 - by <a href="https://www.facebook.com/djalmir.miodutzki" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a>
-            </p>
-        </footer>
-    </div>
-    
-    <script src="index.js"></script>
-</body>
+		<meta name="twitter:title" content="DJ Games - Jogos de navegador criados em Javascript">
+		<meta name="twitter:description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
+		<meta name="twitter:url" content="https://djgames.com.br">
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:image" content="https://djgames.com.br/imgs/djGit.png">
+		<meta name="twitter:creator" content="@DMiodutzki">
+
+		<meta name="theme-color" content="#0a1432">
+		<link rel="apple-touch-icon" href="./imgs/apple-touch-icon.png">
+		<link rel="manifest" href="./manifest.json" crossOrigin="use-credentials">
+
+		<script>
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register('./sw.js')
+			}
+		</script>
+
+	</head>
+
+	<body>
+		<div id='interface'>
+			<header>
+				<nav>
+					<h1>Menu Principal</h1>
+					<ul>
+						<li onclick="javascript:location.href='studies.html'">
+							Estudos
+						</li>
+						<li onclick="javascript:location.href='index.html'">
+							Jogos
+						</li>
+						<li onclick="javascript:location.href='contacts.html'">
+							Contatos
+						</li>
+					</ul>
+				</nav>
+			</header>
+			<section id='screen'>
+				<iframe id="iframe" title="games"></iframe>
+				<!-- <img src="imgs/fullScreen.png" alt="fullScreenButton" id="fullScreenButton" onclick="fullScreen()"> -->
+			</section>
+			<footer>
+				<p>
+					Copyright &copy; 2018 - by <a href="https://www.facebook.com/djalmir.miodutzki" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a>
+				</p>
+			</footer>
+		</div>
+
+		<script src="index.js"></script>
+	</body>
+
 </html>
