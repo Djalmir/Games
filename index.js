@@ -44,13 +44,13 @@ let switchingColors = {
 let counter = 0
 function rgb() {
 
-	let grd = c.createRadialGradient(mousePos.x, mousePos.y, 50, mousePos.x, mousePos.y, 250)
+	let grd = c.createRadialGradient(mousePos.x, mousePos.y, 50, mousePos.x, mousePos.y, 150)
 	grd.addColorStop(0, `#${ r }${ g }${ b }`)
 	grd.addColorStop(1, 'transparent')
 
 	c.fillStyle = grd
 	c.beginPath()
-	c.arc(mousePos.x, mousePos.y, 250, 0, 2 * Math.PI, true)
+	c.arc(mousePos.x, mousePos.y, 150, 0, 2 * Math.PI, true)
 	c.closePath()
 	c.fill()
 
