@@ -41,7 +41,9 @@ body {
 	left: 0;
 	width: 100%;
 	height: fit-content;
+	min-height: 100vh;
 	padding: 63px 0;
+	box-sizing: border-box;
 }
 
 header {
