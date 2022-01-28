@@ -7,8 +7,8 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<link rel="shortcut icon" href="imgs/ico.ico" type="image/x-icon" />
 		<link rel="stylesheet" href="index.css">
-		<title>DJ Games</title>
-		<meta name="description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
+		<title>Razion Games</title>
+		<!-- <meta name="description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
 		<link rel="canonical" href="https://djgames.com.br">
 		<meta name="author" content="Djalmir Miodutzki">
 		<meta name="robots" content="index, nofollow">
@@ -32,49 +32,74 @@
 		<meta name="twitter:url" content="https://djgames.com.br">
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:image" content="https://djgames.com.br/imgs/djGit.png">
-		<meta name="twitter:creator" content="@DMiodutzki">
+		<meta name="twitter:creator" content="@DMiodutzki"> -->
 
-		<meta name="theme-color" content="#0a1432">
-		<link rel="apple-touch-icon" href="./imgs/apple-touch-icon.png">
-		<link rel="manifest" href="./manifest.json" crossOrigin="use-credentials">
+		<meta name="theme-color" content="#101010">
+		<!-- <link rel="apple-touch-icon" href="./imgs/apple-touch-icon.png">
+		<link rel="manifest" href="./manifest.json" crossOrigin="use-credentials"> -->
 
-		<script>
+		<!-- <script>
 			if ('serviceWorker' in navigator) {
 				navigator.serviceWorker.register('./sw.js')
 			}
-		</script>
+		</script> -->
 
 	</head>
 
 	<body>
-		<div id='interface'>
-			<header>
-				<nav>
-					<h1>Menu Principal</h1>
-					<ul>
-						<li onclick="javascript:location.href='studies.html'">
-							Estudos
-						</li>
-						<li onclick="javascript:location.href='index.html'">
-							Jogos
-						</li>
-						<li onclick="javascript:location.href='contacts.html'">
-							Contatos
-						</li>
-					</ul>
-				</nav>
-			</header>
-			<section id='screen'>
-				<iframe id="iframe" title="games"></iframe>
-				<!-- <img src="imgs/fullScreen.png" alt="fullScreenButton" id="fullScreenButton" onclick="fullScreen()"> -->
-			</section>
-			<footer>
-				<p>
-					Copyright &copy; 2018 - by <a href="https://www.facebook.com/djalmir.miodutzki" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a>
-				</p>
-			</footer>
-		</div>
+		<header>
+			<h1>Razion Games</h1>
+		</header>
+		<canvas id="canvas"></canvas>
+		<!-- <div id="mouseSeeker"></div> -->
+		<div id="background"></div>
+		<section>
+			<div id="container">
+				<figure class="gameCard" onclick="location.href='./AtaquEstok/AtaquEstok.html'">
+					<img src="AtaquEstok/preview.png">
+					<figcaption>
+						<p>AtaquEstok</p>
+					</figcaption>
+				</figure>
+				<figure class="gameCard" onclick="location.href='./Invasores/Invasores.html'">
+					<img src="Invasores/preview.png">
+					<figcaption>
+						<p>Invasores</p>
+					</figcaption>
+				</figure>
+				<figure class="gameCard" onclick="location.href='./Quebra Tudo/Quebra Tudo.html'">
+					<img src="Quebra Tudo/preview.png">
+					<figcaption>
+						<p>Quebra Tudo!</p>
+					</figcaption>
+				</figure>
+				<figure class="gameCard" onclick="location.href='./S.i.n.S/S.i.n.S.html'">
+					<img src="S.i.n.S/preview.png" style="width: 50%; height: 50%;">
+					<figcaption>
+						<p>S.in.S</p>
+					</figcaption>
+				</figure>
+				<figure class="gameCard" onclick="location.href='./S.i.n.S2/S.i.n.S2.html'">
+					<img src="S.i.n.S2/preview.png" style="width: 50%; height: 50%;">
+					<figcaption>
+						<p>S.in.S2</p>
+					</figcaption>
+				</figure>
+				<figure class="gameCard" onclick="location.href='./Tetris/tetris.html'">
+					<img src="Tetris/preview.png">
+					<figcaption>
+						<p>Tetris</p>
+					</figcaption>
+				</figure>
+			</div>
+		</section>
 
+
+		<footer>
+			<p>
+				Copyright &copy; 2018 - by <a href="https://github.com/Djalmir" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a>
+			</p>
+		</footer>
 		<script src="index.js"></script>
 	</body>
 

@@ -1,4 +1,4 @@
-var CACHE_NAME = 'static-v1'
+var CACHE_NAME = 'razion-games-v1'
 
 self.addEventListener('install', function(event){
     event.waitUntil(
@@ -7,12 +7,7 @@ self.addEventListener('install', function(event){
                 '/index.html',
                 '/index.css',
                 '/index.js',
-                '/contacts.html',
                 '/loading.gif',
-                '/manifest.json',
-                '/menu.css',
-                '/menu.html',
-                '/studies.html'
             ])
         })
     )

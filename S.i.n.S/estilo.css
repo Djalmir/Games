@@ -1,27 +1,28 @@
 @charset "UTF-8";
-@font-face{
-    font-family: "Comic Sans MS";
+
+@font-face {
+	font-family: "Comic Sans MS";
 	src: url("../fonts/Comic\ Sans\ MS.ttf");
 	font-display: swap;
 }
 
-body{
+body {
 	overflow: hidden;
 	background-color: black;
 	font-family: 'Comic Sans MS';
 }
 
-#loadGif{
+#loadGif {
 	position: absolute;
 	left: 49%;
 	top: 50%;
 }
 
-#tela{
+#tela {
 	background-color: black;
-	position: absolute;	
-	left:0px;
-	top:0px;
-	width:100%;
-	height:100%;	
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
 }
