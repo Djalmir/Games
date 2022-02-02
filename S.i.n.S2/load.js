@@ -66,24 +66,24 @@ function load() {
 			}
 			abertura1()
 		}
-		else {
-			cGUI.clearRect(0, 0, 800, 600)
-			cGUI.strokeStyle = "darkred"
-			cGUI.lineCap = "round"
-			cGUI.lineWidth = 10
-			cGUI.beginPath()
-			cGUI.moveTo(350, 590)
-			cGUI.lineTo(450, 590)
-			cGUI.stroke()
-			cGUI.closePath()
-			cGUI.strokeStyle = "lime"
-			cGUI.lineWidth = 7
-			cGUI.beginPath()
-			cGUI.moveTo(350, 590)
-			cGUI.lineTo(350 + (loadedResources * (100 / 249)), 590)
-			cGUI.stroke()
-			cGUI.closePath()
-		}
+		// else {
+		// 	cGUI.clearRect(0, 0, 800, 600)
+		// 	cGUI.strokeStyle = "darkred"
+		// 	cGUI.lineCap = "round"
+		// 	cGUI.lineWidth = 10
+		// 	cGUI.beginPath()
+		// 	cGUI.moveTo(350, 590)
+		// 	cGUI.lineTo(450, 590)
+		// 	cGUI.stroke()
+		// 	cGUI.closePath()
+		// 	cGUI.strokeStyle = "lime"
+		// 	cGUI.lineWidth = 7
+		// 	cGUI.beginPath()
+		// 	cGUI.moveTo(350, 590)
+		// 	cGUI.lineTo(350 + (loadedResources * (100 / 249)), 590)
+		// 	cGUI.stroke()
+		// 	cGUI.closePath()
+		// }
 	}
 
 	logo = new Image()
