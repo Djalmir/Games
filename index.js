@@ -42,17 +42,37 @@ let switchingColors = {
 }
 
 let counter = 0
+let arcRadius = 150
+let arcRadiusAction = 'grow'
+let breathCounter = 0
 function rgb() {
 
-	let grd = c.createRadialGradient(mousePos.x, mousePos.y, 50, mousePos.x, mousePos.y, 150)
+	let grd = c.createRadialGradient(mousePos.x, mousePos.y, 0, mousePos.x, mousePos.y, arcRadius-50)
 	grd.addColorStop(0, `#${ r }${ g }${ b }`)
-	grd.addColorStop(1, 'transparent')
+	grd.addColorStop(1, `#${ r }${ g }${ b }00`)
 
 	c.fillStyle = grd
+	// c.fillStyle = `#${ r }${ g }${ b }`
 	c.beginPath()
-	c.arc(mousePos.x, mousePos.y, 150, 0, 2 * Math.PI, true)
+	c.arc(mousePos.x, mousePos.y, arcRadius, 0, 2 * Math.PI, true)
 	c.closePath()
 	c.fill()
+
+	if (breathCounter++ >= 3) {
+		switch (arcRadiusAction) {
+			case ('grow'):
+				arcRadius++
+				if (arcRadius >= 180)
+					arcRadiusAction = 'shrink'
+				break
+			case ('shrink'):
+				arcRadius--
+				if (arcRadius <= 150)
+					arcRadiusAction = 'grow'
+				break
+		}
+		breathCounter=0
+	}
 
 	if (counter >= 9) {
 		c.fillStyle = `#00000010`
