@@ -54,7 +54,7 @@
 		<!-- <div id="mouseSeeker"></div> -->
 		<div id="background"></div>
 		<section>
-			<div id="container">
+			<div class="container">
 				<figure class="gameCard" onclick="location.href='./AtaquEstok/AtaquEstok.html'">
 					<img src="AtaquEstok/preview.png">
 					<figcaption>
@@ -96,9 +96,16 @@
 
 
 		<footer>
+			<div></div>
 			<p>
 				Copyright &copy; 2018 - by <a href="https://github.com/Djalmir" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a>
 			</p>
+			<div id="hideInterfaceBtDiv">
+				<button id="hideInterfaceBt" onclick="showHideInterface()">
+					<span id="hideInterfaceBtSpan">Hide Interface</span>
+					<img src="./imgs/eye.svg" id="eyeImg" alt="eye image">
+				</button>
+			</div>
 		</footer>
 		<script src="index.js"></script>
 	</body>
