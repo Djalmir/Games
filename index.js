@@ -20,7 +20,7 @@ function setBgCanvasSizes() {
 setBgCanvasSizes()
 window.addEventListener('resize', setBgCanvasSizes)
 
-let mousePos = {x: 0, y: 0}
+let mousePos = {x: undefined, y: undefined}
 
 function mouseMove(e) {
 	mousePos = {
@@ -30,6 +30,15 @@ function mouseMove(e) {
 }
 document.onmousemove = mouseMove
 document.ontouchmove = mouseMove
+
+function clearMousePos() {
+	mousePos = {
+		x: undefined,
+		y: undefined
+	}
+}
+document.onmouseout = clearMousePos
+document.ontouchend = clearMousePos
 
 // #0099ff, #77ff77, #ff3344
 let cValues = ['00', '11', '22', '33', '44', '55', '66', '77', '88', '99', 'aa', 'bb', 'cc', 'dd', 'ee', 'ff']
@@ -42,23 +51,25 @@ let switchingColors = {
 }
 
 let counter = 0
-let arcRadius = 150
+let arcRadius = 160
 let arcRadiusAction = 'grow'
 let breathCounter = 0
 function rgb() {
 
-	let grd = c.createRadialGradient(mousePos.x, mousePos.y, 0, mousePos.x, mousePos.y, arcRadius - 50)
-	grd.addColorStop(0, `#${ r }${ g }${ b }`)
-	grd.addColorStop(1, `#${ r }${ g }${ b }00`)
+	if (mousePos.x) {
+		let grd = c.createRadialGradient(mousePos.x, mousePos.y, 0, mousePos.x, mousePos.y, arcRadius - 50)
+		grd.addColorStop(0, `#${ r }${ g }${ b }`)
+		grd.addColorStop(1, `#${ r }${ g }${ b }00`)
 
-	c.fillStyle = grd
-	// c.fillStyle = `#${ r }${ g }${ b }`
-	c.beginPath()
-	c.arc(mousePos.x, mousePos.y, arcRadius, 0, 2 * Math.PI, true)
-	c.closePath()
-	c.fill()
+		c.fillStyle = grd
+		// c.fillStyle = `#${ r }${ g }${ b }`
+		c.beginPath()
+		c.arc(mousePos.x, mousePos.y, arcRadius, 0, 2 * Math.PI, true)
+		c.closePath()
+		c.fill()
+	}
 
-	if (breathCounter++ >= 3) {
+	if (breathCounter++ >= 2) {
 		switch (arcRadiusAction) {
 			case ('grow'):
 				arcRadius++
@@ -67,7 +78,7 @@ function rgb() {
 				break
 			case ('shrink'):
 				arcRadius--
-				if (arcRadius <= 150)
+				if (arcRadius <= 160)
 					arcRadiusAction = 'grow'
 				break
 		}
@@ -138,15 +149,14 @@ rgb()
 
 let showingInterface = true
 function showHideInterface() {
-	let interfaceElements = [document.querySelector('header'), ...Array.from(document.querySelectorAll('.container')), document.querySelector('footer')]
+	let interfaceElements = Array.from(document.querySelectorAll('.container'))
 	showingInterface = !showingInterface
 	if (showingInterface) {
 		hideInterfaceBtSpan.innerText = 'Hide Interface'
-		hideInterfaceBt.style.position = ''
-		hideInterfaceBt.style.right = ''
-		hideInterfaceBt.style.bottom = ''
-		hideInterfaceBtDiv.appendChild(hideInterfaceBt)
-		// document.body.removeChild(hideInterfaceBt)
+		// hideInterfaceBt.style.position = ''
+		// hideInterfaceBt.style.right = ''
+		// hideInterfaceBt.style.bottom = ''
+		// hideInterfaceBtDiv.appendChild(hideInterfaceBt)
 		interfaceElements.map(el => {
 			el.style.display = ''
 		})
@@ -158,12 +168,11 @@ function showHideInterface() {
 			el.style.display = 'none'
 		})
 		hideInterfaceBtSpan.innerText = 'Show Interface'
-		hideInterfaceBt.style.position = 'fixed'
-		hideInterfaceBt.style.right = '8px'
-		hideInterfaceBt.style.bottom = '8px'
-		hideInterfaceBt.style.zIndex = '50'
-		document.body.appendChild(hideInterfaceBt)
-		// document.querySelector('footer').removeChild(hideInterfaceBt)
+		// hideInterfaceBt.style.position = 'fixed'
+		// hideInterfaceBt.style.right = '8px'
+		// hideInterfaceBt.style.bottom = '8px'
+		// hideInterfaceBt.style.zIndex = '50'
+		// document.body.appendChild(hideInterfaceBt)
 		eyeImg.style.opacity = '1'
 	}
 	setBgCanvasSizes()
@@ -174,7 +183,7 @@ function showHideInterface() {
 const headerCanvas = document.querySelector('#headerCanvas')
 let headerC = headerCanvas.getContext('2d')
 
-headerCanvas.width = 2500
+headerCanvas.width = 2000
 headerCanvas.height = 400
 
 const showText = "Razion Games"
@@ -236,26 +245,27 @@ class Particle {
 		this.baseX = this.x
 		this.baseY = this.y
 		this.density = (Math.random() * 100) + 25
-		this.char = chars[Math.floor(Math.random() * chars.length)]
+		// this.char = chars[Math.floor(Math.random() * chars.length)]
 		this.initialColor = '#fff'
 		this.color = this.initialColor
 		this.colorOnMove = colors[Math.floor(Math.random() * colors.length)]
-		setInterval(() => {
-			this.char = chars[Math.floor(Math.random() * chars.length)]
-		}, 100 + Math.floor(Math.random() * 2500))
+		// setInterval(() => {
+		// 	this.char = chars[Math.floor(Math.random() * chars.length)]
+		// }, 100 + Math.floor(Math.random() * 2500))
 	}
 
 	draw() {
-		headerC.fillStyle = this.color
-		headerC.font = `bold ${ this.size }px Play`
-		headerC.fillText(this.char, this.x, this.y)
+		// headerC.fillStyle = this.color
+		// headerC.font = `bold ${ this.size }px Play`
+		// headerC.fillText(this.char, this.x, this.y)
 
 		// headerC.beginPath()
 		// headerC.arc(this.x, this.y, this.size, 0, Math.PI * 2, false)
 		// headerC.closePath()
 		// headerC.fill()
-
-		// headerC.fillRect(this.x, this.y, this.size, this.size)
+		headerCanvas.style.background = `linear-gradient(to right, #101010, #${ r }${ g }${ b }25 25% 75%,#101010)`
+		headerC.fillStyle = `#${ r }${ g }${ b }`
+		headerC.fillRect(this.x, this.y, this.size / 2.2, this.size)
 	}
 
 	update() {
