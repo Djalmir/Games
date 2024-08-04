@@ -502,7 +502,7 @@ fetch('https://api.razion.app.br/auth/access', {
 		'Content-Type': 'application/json'
 	},
 	body: JSON.stringify({
-		app: location.host,
+		app: location.host + location.pathname,
 		browser: navigator.userAgent,
 		language: navigator.language,
 		// geolocation: geolocation
