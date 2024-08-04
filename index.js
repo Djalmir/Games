@@ -20,7 +20,7 @@ function setBgCanvasSizes() {
 setBgCanvasSizes()
 window.addEventListener('resize', setBgCanvasSizes)
 
-let mousePos = {x: undefined, y: undefined}
+let mousePos = { x: undefined, y: undefined }
 
 function mouseMove(e) {
 	mousePos = {
@@ -58,8 +58,8 @@ function rgb() {
 
 	if (mousePos.x) {
 		let grd = c.createRadialGradient(mousePos.x, mousePos.y, 0, mousePos.x, mousePos.y, arcRadius - 50)
-		grd.addColorStop(0, `#${ r }${ g }${ b }`)
-		grd.addColorStop(1, `#${ r }${ g }${ b }00`)
+		grd.addColorStop(0, `#${r}${g}${b}`)
+		grd.addColorStop(1, `#${r}${g}${b}00`)
 
 		c.fillStyle = grd
 		// c.fillStyle = `#${ r }${ g }${ b }`
@@ -263,8 +263,8 @@ class Particle {
 		// headerC.arc(this.x, this.y, this.size, 0, Math.PI * 2, false)
 		// headerC.closePath()
 		// headerC.fill()
-		headerCanvas.style.background = `linear-gradient(to right, #101010, #${ r }${ g }${ b }25 25% 75%,#101010)`
-		headerC.fillStyle = `#${ r }${ g }${ b }`
+		headerCanvas.style.background = `linear-gradient(to right, #101010, #${r}${g}${b}25 25% 75%,#101010)`
+		headerC.fillStyle = `#${r}${g}${b}`
 		headerC.fillRect(this.x, this.y, this.size / 2.2, this.size)
 	}
 
@@ -495,3 +495,16 @@ animate()
 
 // window.onresize = centralizeGame
 // window.onorientationchange = orientationChanged
+
+fetch('https://api.razion.app.br/auth/access', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json'
+	},
+	body: JSON.stringify({
+		app: location.host,
+		browser: navigator.userAgent,
+		language: navigator.language,
+		// geolocation: geolocation
+	})
+})
