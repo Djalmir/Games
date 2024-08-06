@@ -131,18 +131,23 @@ function pause() {
 		canvas.style.cursor = "none"
 
 }
-var frame = 0
-function loop() {
-	if (jogoRodando && (player.vidas > 0))
-		requestAnimationFrame(loop)
-	else if (player.vidas > 0)
-		requestAnimationFrame(pause)
+var lastTimesptamp = 0
+function loop(timestamp) {
+	const delta = timestamp - lastTimesptamp
+	if (delta > 1000 / 120) {
+		if (jogoRodando && (player.vidas > 0))
+			requestAnimationFrame(loop)
+		else if (player.vidas > 0)
+			requestAnimationFrame(pause)
+		else
+			requestAnimationFrame(gameOver)
+		detectaColisoes()
+		desenha()
+		moveGame()
+		// snds.music.play()
+	}
 	else
-		requestAnimationFrame(gameOver)
-	detectaColisoes()
-	desenha()
-	moveGame()
-	// snds.music.play()
+		requestAnimationFrame(loop)
 }
 
 function desenha() {

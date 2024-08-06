@@ -589,29 +589,36 @@ function pausa() {
 		canvas.style.cursor = "none"
 }
 
-function loop() {
-	music.oncanplaythrough = music.play()
-	if (pausado) {
-		canvas.style.cursor = "default"
-		requestAnimationFrame(pausa)
-	}
-	else
-		if (isGameOver) {
+let lastTimesptamp = 0
+function loop(timestamp) {
+	const delta = timestamp - lastTimesptamp
+	if (delta > 1000 / 120) {
+		lastTimesptamp = timestamp
+		music.oncanplaythrough = music.play()
+		if (pausado) {
 			canvas.style.cursor = "default"
-			requestAnimationFrame(gameOver)
+			requestAnimationFrame(pausa)
 		}
 		else
-			if (passandoFase) {
-				requestAnimationFrame(passaFase)
+			if (isGameOver) {
+				canvas.style.cursor = "default"
+				requestAnimationFrame(gameOver)
 			}
-			else {
-				requestAnimationFrame(loop)
-				moveGame()
-				detectaColisao()
-				desenha()
-				if (passandoFase)
-					passaFase()
-			}
+			else
+				if (passandoFase) {
+					requestAnimationFrame(passaFase)
+				}
+				else {
+					requestAnimationFrame(loop)
+					moveGame()
+					detectaColisao()
+					desenha()
+					if (passandoFase)
+						passaFase()
+				}
+	}
+	else
+		requestAnimationFrame(loop)
 }
 
 function desenha() {

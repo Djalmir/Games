@@ -25,7 +25,7 @@ function mainMenuBackground() {
 		try {
 			boxes[i].move()
 		}
-		catch {}
+		catch { }
 		if (boxes[i].top > 617) {
 			for (var p = i; p < boxes.length - 1; p++) {
 				boxes[p] = boxes[p + 1]
@@ -35,7 +35,7 @@ function mainMenuBackground() {
 		try {
 			c.drawImage(box, boxes[i].left - 16, boxes[i].top - 16)
 		}
-		catch {}
+		catch { }
 	}
 	c.fillStyle = 'rgba(0,0,0,.3)'
 	c.fillRect(0, 0, 800, 600)
@@ -71,7 +71,7 @@ function openning1() {
 		if (fade < 1)
 			fade += .005
 		else
-			setTimeout(() => {cutOpenning = true}, 1000)
+			setTimeout(() => { cutOpenning = true }, 1000)
 
 		if (!cutOpenning)
 			requestAnimationFrame(openning1)
@@ -204,27 +204,32 @@ function newGame() {
 	loop()
 }
 
-function loop() {
-	player.detectCollision()
-	player.move()
-	for (var i = 0; i < claws.length; i++) {
-		claws[i].move()
-	}
-	for (var i = 0; i < boxes.length; i++) {
-		boxes[i].detectCollision()
-		try {
-			boxes[i].move()
+let lastTimesptamp = 0
+function loop(timestamp) {
+	const delta = timestamp - lastTimesptamp
+	if (delta > 1000 / 120) {
+		lastTimesptamp = timestamp
+		player.detectCollision()
+		player.move()
+		for (var i = 0; i < claws.length; i++) {
+			claws[i].move()
 		}
-		catch {}
+		for (var i = 0; i < boxes.length; i++) {
+			boxes[i].detectCollision()
+			try {
+				boxes[i].move()
+			}
+			catch { }
 
+		}
+		for (var i = 0; i < particles.length; i++) {
+			particles[i].move()
+		}
+
+		createNewClaw()
+
+		draw()
 	}
-	for (var i = 0; i < particles.length; i++) {
-		particles[i].move()
-	}
-
-	createNewClaw()
-
-	draw()
 
 	if (musicPlayer.ended || musicPlayer.paused) {
 		var rand = Math.floor(1 + Math.random() * 3)
