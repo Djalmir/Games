@@ -1,114 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-		<link rel="stylesheet" href="index.css">
-		<title>Razion Games</title>
-		<!-- <meta name="description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
-		<link rel="canonical" href="https://djgames.com.br">
-		<meta name="author" content="Djalmir Miodutzki">
-		<meta name="robots" content="index, nofollow">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="index.css">
+	<title>Razion Games</title>
+	<meta name="description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
+	<link rel="canonical" href="https://games.razion.app.br">
+	<meta name="author" content="Djalmir Miodutzki">
+	<meta name="robots" content="index, nofollow">
 
-		<meta itemprop="name" content="DJ Games - Jogos de navegador criados em Javascript">
-		<meta itemprop="description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
-		<meta itemprop="image" content="https://djgames.com.br/imgs/djGit.png">
-		<link href="https://github.com/Djalmir" rel="publisher">
+	<meta itemprop="name" content="Razion Games - Jogos de navegador criados em Javascript">
+	<meta itemprop="description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
+	<meta itemprop="image" content="https://games.razion.app.br/imgs/capa-razion.png">
+	<link href="https://github.com/Djalmir" rel="publisher">
 
-		<meta property="og:locale" content="pt_br">
-		<meta property="og:title" content="DJ Games - Jogos de navegador criados em Javascript">
-		<meta property="og:description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
-		<meta property="og:url" content="https://djgames.com.br">
-		<meta property="og:site_name" content="DJ Games">
-		<meta property="og:type" content="website">
-		<meta property="og:image" content="https://djgames.com.br/imgs/djGit.png">
-		<meta property="og:image:type" content="image/jpg">
+	<meta property="og:locale" content="pt_br">
+	<meta property="og:title" content="Razion Games - Jogos de navegador criados em Javascript">
+	<meta property="og:description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
+	<meta property="og:url" content="https://games.razion.app.br">
+	<meta property="og:site_name" content="Razion Games">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://games.razion.app.br/imgs/capa-razion.png">
+	<meta property="og:image:type" content="image/jpg">
 
-		<meta name="twitter:title" content="DJ Games - Jogos de navegador criados em Javascript">
-		<meta name="twitter:description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
-		<meta name="twitter:url" content="https://djgames.com.br">
-		<meta name="twitter:card" content="summary">
-		<meta name="twitter:image" content="https://djgames.com.br/imgs/djGit.png">
-		<meta name="twitter:creator" content="@DMiodutzki"> -->
+	<meta name="twitter:title" content="Razion Games - Jogos de navegador criados em Javascript">
+	<meta name="twitter:description" content="Jogos clássicos no navegador! Não precisa baixar! É só clicar e jogar!">
+	<meta name="twitter:url" content="https://games.razion.app.br">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:image" content="https://games.razion.app.br/imgs/capa-razion.png">
+	<meta name="twitter:creator" content="@DMiodutzki">
 
-		<meta name="theme-color" content="#101010">
-		<!-- <link rel="apple-touch-icon" href="./imgs/apple-touch-icon.png">
+	<meta name="theme-color" content="#101010">
+	<!-- <link rel="apple-touch-icon" href="./imgs/apple-touch-icon.png">
 		<link rel="manifest" href="./manifest.json" crossOrigin="use-credentials"> -->
 
-		<!-- <script>
+	<!-- <script>
 			if ('serviceWorker' in navigator) {
 				navigator.serviceWorker.register('./sw.js')
 			}
 		</script> -->
 
-	</head>
+</head>
 
-	<body>
-		<header>
-			<!-- <h1>Razion Games</h1> -->
-			<!-- <div id="headerCanvasContainer"> -->
-				<canvas id="headerCanvas"></canvas>
-			<!-- </div> -->
-		</header>
-		<canvas id="bgCanvas"></canvas>
-		<!-- <div id="mouseSeeker"></div> -->
-		<div id="background"></div>
-		<section>
-			<div class="container">
-				<figure class="gameCard" onclick="location.href='./AtaquEstok/AtaquEstok.html'">
-					<img src="AtaquEstok/preview.png">
-					<figcaption>
-						<p>AtaquEstok</p>
-					</figcaption>
-				</figure>
-				<figure class="gameCard" onclick="location.href='./Invasores/Invasores.html'">
-					<img src="Invasores/preview.png">
-					<figcaption>
-						<p>Invasores</p>
-					</figcaption>
-				</figure>
-				<figure class="gameCard" onclick="location.href='./Quebra Tudo/Quebra Tudo.html'">
-					<img src="Quebra Tudo/preview.png">
-					<figcaption>
-						<p>Quebra Tudo!</p>
-					</figcaption>
-				</figure>
-				<figure class="gameCard" onclick="location.href='./S.i.n.S/S.i.n.S.html'">
-					<img src="S.i.n.S/preview.png" style="width: 50%; height: 50%;">
-					<figcaption>
-						<p>S.in.S</p>
-					</figcaption>
-				</figure>
-				<figure class="gameCard" onclick="location.href='./S.i.n.S2/S.i.n.S2.html'">
-					<img src="S.i.n.S2/preview.png" style="width: 50%; height: 50%;">
-					<figcaption>
-						<p>S.in.S2</p>
-					</figcaption>
-				</figure>
-				<figure class="gameCard" onclick="location.href='./Tetris/tetris.html'">
-					<img src="Tetris/preview.png">
-					<figcaption>
-						<p>Tetris</p>
-					</figcaption>
-				</figure>
-			</div>
-		</section>
+<body>
+	<header>
+		<canvas id="headerCanvas"></canvas>
+	</header>
+	<canvas id="bgCanvas"></canvas>
+	<div id="background"></div>
+	<section>
+		<div class="container">
+			<figure class="gameCard" onclick="location.href='./AtaquEstok/AtaquEstok.html'">
+				<img src="AtaquEstok/preview.png">
+				<figcaption>
+					<p>AtaquEstok</p>
+				</figcaption>
+			</figure>
+			<figure class="gameCard" onclick="location.href='./Invasores/Invasores.html'">
+				<img src="Invasores/preview.png">
+				<figcaption>
+					<p>Invasores</p>
+				</figcaption>
+			</figure>
+			<figure class="gameCard" onclick="location.href='./Quebra Tudo/Quebra Tudo.html'">
+				<img src="Quebra Tudo/preview.png">
+				<figcaption>
+					<p>Quebra Tudo!</p>
+				</figcaption>
+			</figure>
+			<figure class="gameCard" onclick="location.href='./S.i.n.S/S.i.n.S.html'">
+				<img src="S.i.n.S/preview.png" style="width: 50%; height: 50%;">
+				<figcaption>
+					<p>S.in.S</p>
+				</figcaption>
+			</figure>
+			<figure class="gameCard" onclick="location.href='./S.i.n.S2/S.i.n.S2.html'">
+				<img src="S.i.n.S2/preview.png" style="width: 50%; height: 50%;">
+				<figcaption>
+					<p>S.in.S2</p>
+				</figcaption>
+			</figure>
+			<figure class="gameCard" onclick="location.href='./Tetris/tetris.html'">
+				<img src="Tetris/preview.png">
+				<figcaption>
+					<p>Tetris</p>
+				</figcaption>
+			</figure>
+		</div>
+	</section>
 
-		<footer>
-			<p>
-				Copyright &copy; 2018 - by <a href="https://github.com/Djalmir" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a>
-			</p>
-			<div id="hideInterfaceBtDiv">
-				<button id="hideInterfaceBt" onclick="showHideInterface()">
-					<span id="hideInterfaceBtSpan">Hide Interface</span>
-					<img src="./imgs/eye.svg" id="eyeImg" alt="eye image">
-				</button>
-			</div>
-		</footer>
-		<script src="index.js"></script>
-	</body>
+	<footer>
+		<p>
+			Copyright &copy; 2024 - by <a href="https://github.com/Djalmir" target="_blank" rel="noopener noreferrer">Djalmir Miodutzki</a>
+		</p>
+		<div id="hideInterfaceBtDiv">
+			<button id="hideInterfaceBt" onclick="showHideInterface()">
+				<span id="hideInterfaceBtSpan">Hide Interface</span>
+				<img src="./imgs/eye.svg" id="eyeImg" alt="eye image">
+			</button>
+		</div>
+	</footer>
+	<script src="index.js"></script>
+</body>
 
 </html>
